@@ -28,7 +28,7 @@
 @property(readonly) double max;
 @property(readonly) double mean;
 
-- (double)sampleRange;
+- (double)range;
 - (double)variance;
 - (double)standardDeviation;
 - (double)biasedVariance;

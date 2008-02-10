@@ -80,13 +80,13 @@
     STAssertEqualsWithAccuracy(stat.mean, 1/3.0, 1e-6, nil);
 }
 
-- (void)testSampleRange {
+- (void)testRange {
     [stat addData:@"1"];
     [stat addData:@"2"];
-    STAssertEqualsWithAccuracy([stat sampleRange], 1.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat range], 1.0, 1e-6, nil);
     
     [stat addData:@"-2"];
-    STAssertEqualsWithAccuracy([stat sampleRange], 4.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat range], 4.0, 1e-6, nil);
     
 }
 - (void)testVariance {

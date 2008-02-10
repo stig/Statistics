@@ -55,7 +55,7 @@
     pseudoVariance += (d - mean) * (d - oldMean);
 }
 
-- (double)sampleRange
+- (double)range
 {
     return max - min;
 }
