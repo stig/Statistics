@@ -56,16 +56,19 @@
 
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x
 {
-    id freq = [NSMutableDictionary dictionaryWithCapacity:x];
-    
-    // First create all the buckets in the range
-    id buckets = [NSMutableArray arrayWithCapacity:x];
+    // Calculate the range of each bucket
     double interval = self.range / x;
-    for (double bucket = self.max; bucket > self.min; bucket -= interval) {
-        NSNumber *b = [NSNumber numberWithDouble:bucket];
-        [freq setObject:[NSNumber numberWithInt:0] forKey:b];
-        [buckets insertObject:b atIndex:0];
-    }
+
+    // Create the buckets
+    id buckets = [NSMutableArray arrayWithCapacity:x];
+    for (double bucket = self.max; bucket > self.min; bucket -= interval)
+        [buckets insertObject:[NSNumber numberWithDouble:bucket] atIndex:0];
+    
+    // Create dictionary to hold frequency distribution and initialise each bucket
+    id freq = [NSMutableDictionary dictionaryWithCapacity:x];
+    for (NSNumber *bucket in buckets)
+        [freq setObject:[NSNumber numberWithInt:0] forKey:bucket];
+    
 
     // Now determine the frequency for each bucket
     for (NSNumber *n in data)
