@@ -31,6 +31,11 @@
     
     [stat addDataFromArray:[@"4 4 4" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat mode], 4.0, 1e-6, nil);
+
+    // Ensure string/number agnosticism
+    [stat addData:[NSNumber numberWithInt:2]];
+    [stat addData:[NSNumber numberWithInt:2]];
+    STAssertEqualsWithAccuracy([stat mode], 2.0, 1e-6, nil);
 }
 
 - (void)testMedian {
