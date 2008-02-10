@@ -47,11 +47,9 @@
         max = d;
         maxdex = count;
     }
-    count++;    
     
     double oldMean = mean;
-
-    mean += (d - oldMean) / count;
+    mean += (d - oldMean) / ++count;
     pseudoVariance += (d - mean) * (d - oldMean);
 }
 
