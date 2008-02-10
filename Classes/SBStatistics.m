@@ -43,7 +43,8 @@
     if (d < min) {
         min = d;
         mindex = count;
-    } else if (d > max) {
+    }
+    if (d > max) {
         max = d;
         maxdex = count;
     }

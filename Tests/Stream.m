@@ -81,19 +81,22 @@
 }
 
 - (void)testRange {
-    [stat addData:@"1"];
+    [stat addData:@"19"];
+    STAssertEqualsWithAccuracy([stat range], 0.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy(stat.range, 0.0, 1e-6, nil);
+
     [stat addData:@"2"];
-    STAssertEqualsWithAccuracy([stat range], 1.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat range], 17.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy(stat.range, 17.0, 1e-6, nil);
     
     [stat addData:@"-2"];
-    STAssertEqualsWithAccuracy([stat range], 4.0, 1e-6, nil);
-    
+    STAssertEqualsWithAccuracy([stat range], 21.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy(stat.range, 21.0, 1e-6, nil);   
 }
 
 - (void)testVariance {
     [stat addDataFromArray:[@"1 2 3 4" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat variance], 5/3.0, 1e-6, nil);
-
 }
 
 - (void)testStandardDeviation {
