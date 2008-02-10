@@ -7,16 +7,4 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface NSArray (Statistics)
-
-- (double)min;
-- (double)max;
-- (double)mean;
-- (double)median;
-- (double)mindex;
-- (double)maxdex;
-- (double)variance;
-- (double)standardDeviation;
-
-@end
+#import <Statistics/SBStatistics.h>

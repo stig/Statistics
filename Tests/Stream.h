@@ -8,9 +8,10 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class SBStatistics;
 
-@interface Tests : SenTestCase {
-    NSArray *values;
+@interface Stream : SenTestCase {
+    SBStatistics *stat;
 }
 
 @end
