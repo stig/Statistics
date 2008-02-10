@@ -68,9 +68,8 @@
     id freq = [NSMutableDictionary dictionaryWithCapacity:x];
     for (NSNumber *bucket in buckets)
         [freq setObject:[NSNumber numberWithInt:0] forKey:bucket];
-    
 
-    // Now determine the frequency for each bucket
+    // Determine the frequency for each bucket
     for (NSNumber *n in data)
         for (NSNumber *b in buckets)
             if ([b compare:n] >= 0) {
