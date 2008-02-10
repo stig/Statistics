@@ -7,6 +7,7 @@
 //
 
 #import "SBStatistics.h"
+#import "SBMutableDictionary.h"
 
 
 @implementation SBFullStatistics
@@ -35,7 +36,15 @@
 
 #pragma mark Statistics
 
- - (double)median
+- (double)mode
+{
+    id freq = [NSMutableDictionary dictionaryWithCapacity:count];
+    for (id x in data)
+        [freq incrementValueForKey:x];
+    return [[[freq keysSortedByValueUsingSelector:@selector(compare:)] lastObject] doubleValue];
+}
+
+- (double)median
 {
     NSArray *sorted = [data sortedArrayUsingSelector:@selector(compare:)];
     if (count & 1)

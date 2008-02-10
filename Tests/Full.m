@@ -25,8 +25,15 @@
 
 #pragma mark Tests
 
+- (void)testMode {
+    [stat addDataFromArray:[@"9 3.3 1 2 2" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat mode], 2.0, 1e-6, nil);
+    
+    [stat addDataFromArray:[@"4 4 4" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat mode], 4.0, 1e-6, nil);
+}
 
- - (void)testMedian {
+- (void)testMedian {
      [stat addDataFromArray:[@"9 3.3 1 2 2" componentsSeparatedByString:@" "]];
      STAssertEqualsWithAccuracy([stat median], 2.0, 1e-6, nil);
  

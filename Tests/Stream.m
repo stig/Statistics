@@ -89,6 +89,7 @@
     STAssertEqualsWithAccuracy([stat range], 4.0, 1e-6, nil);
     
 }
+
 - (void)testVariance {
     [stat addDataFromArray:[@"1 2 3 4" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat variance], 5/3.0, 1e-6, nil);

@@ -44,6 +44,7 @@
     NSMutableArray *data;
 }
 
+- (double)mode;
 - (double)median;
 
 @end
