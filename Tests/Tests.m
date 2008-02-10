@@ -24,10 +24,10 @@
 
 - (void)testMean {
     values = [@"1 2 2" componentsSeparatedByString:@" "];
-    STAssertEqualsWithAccuracy([values mean], 1.6666, 1e-3, nil);
+    STAssertEqualsWithAccuracy([values mean], 5/3.0, 1e-6, nil);
 
     values = [@"1 2 2 -5" componentsSeparatedByString:@" "];
-    STAssertEqualsWithAccuracy([values mean], 0.0, 1e-3, nil);
+    STAssertEqualsWithAccuracy([values mean], 0.0, 1e-6, nil);
 }
 
 - (void)testMedian {

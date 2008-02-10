@@ -28,10 +28,12 @@
 - (double)mean
 {
     NSAssert([self count], nil);
-    double total = 0.0;
+
+    double mean = 0.0;
+    NSInteger n = 0;
     for (id d in self)
-        total += [d doubleValue];
-    return total / [self count];
+        mean += ([d doubleValue] - mean) / ++n;
+    return mean;
 }
 
 - (double)median
