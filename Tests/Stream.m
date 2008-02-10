@@ -90,39 +90,25 @@
     
 }
 - (void)testVariance {
-    [stat addData:@"1"];
-    [stat addData:@"2"];
-    [stat addData:@"3"];
-    [stat addData:@"4"];
+    [stat addData:[@"1 2 3 4" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat variance], 5/3.0, 1e-6, nil);
 
 }
 
 - (void)testStandardDeviation {
-    [stat addData:@"1"];
-    [stat addData:@"2"];
-    [stat addData:@"3"];
-    [stat addData:@"4"];
+    [stat addData:[@"1 2 3 4" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat standardDeviation], sqrt(5/3.0), 1e-6, nil);
     
 }
 
 - (void)testBiasedVariance {
-    [stat addData:@"1"];
-    [stat addData:@"2"];
-    [stat addData:@"3"];
-    [stat addData:@"4"];
+    [stat addData:[@"1 2 3 4" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat biasedVariance], 5/4.0, 1e-6, nil);
-    
 }
 
 - (void)testBiasedStandardDeviation {
-    [stat addData:@"1"];
-    [stat addData:@"2"];
-    [stat addData:@"3"];
-    [stat addData:@"4"];
-    STAssertEqualsWithAccuracy([stat biasedStandardDeviation], sqrt(5/4.0), 1e-6, nil);
-    
+    [stat addData:[@"1 2 3 4" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat biasedStandardDeviation], sqrt(5/4.0), 1e-6, nil);    
 }
 
 

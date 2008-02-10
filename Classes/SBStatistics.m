@@ -31,6 +31,13 @@
 
 - (void)addData:(id)x
 {
+    // Let us add an array of things in one fell swoop.
+    if ([x isKindOfClass:[NSArray class]]) {
+        for (id y in x)
+            [self addData:y];
+        return;
+    }
+    
     double d = [x doubleValue];
     
     if (d < min) {
