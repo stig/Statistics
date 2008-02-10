@@ -59,6 +59,24 @@
                  keyval(5, 4),
                  nil];
     STAssertEqualObjects([stat frequencyDistributionWithPartitions:2], expect, nil);
+
+    id expect2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                  keyval(9, 1),
+                  keyval(7, 0),
+                  keyval(5, 2),
+                  keyval(3, 2),
+                  nil];
+    STAssertEqualObjects([stat frequencyDistributionWithPartitions:4], expect2, nil);
+    
+    // Now add a negative number.
+    [stat addDataFromArray:[@"-9" componentsSeparatedByString:@" "]];
+    id expect3 = [NSDictionary dictionaryWithObjectsAndKeys:
+                  keyval(9, 2),
+                  keyval(4.5, 3),
+                  keyval(0, 0),
+                  keyval(-4.5, 1),
+                  nil];
+    STAssertEqualObjects([stat frequencyDistributionWithPartitions:4], expect3, nil);
 }
 
 @end
