@@ -62,13 +62,26 @@
     // Create the buckets
     id buckets = [NSMutableArray arrayWithCapacity:x];
     for (double bucket = self.max; bucket > self.min; bucket -= interval)
-        [buckets insertObject:[NSNumber numberWithDouble:bucket] atIndex:0];
+        [buckets addObject:[NSNumber numberWithDouble:bucket]];
+    
+    return [self frequencyDistributionWithBuckets:buckets];
+}
+
+- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x
+{
+    // Buckets must be NSNumbers
+    id buckets = [NSMutableArray arrayWithCapacity:[x count]];
+    for (id b in x)
+        [buckets addObject:[NSNumber numberWithDouble:[b doubleValue]]];
+                               
+    // Make sure the buckets are sorted
+    buckets = [buckets sortedArrayUsingSelector:@selector(compare:)];
     
     // Create dictionary to hold frequency distribution and initialise each bucket
-    id freq = [NSMutableDictionary dictionaryWithCapacity:x];
+    id freq = [NSMutableDictionary dictionaryWithCapacity:[buckets count]];
     for (NSNumber *bucket in buckets)
         [freq setObject:[NSNumber numberWithInt:0] forKey:bucket];
-
+    
     // Determine the frequency for each bucket
     for (NSNumber *n in data)
         for (NSNumber *b in buckets)
@@ -76,7 +89,7 @@
                 [freq incrementValueForNumber:b];
                 break;
             }
-
+    
     return freq;
 }
 

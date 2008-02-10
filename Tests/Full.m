@@ -79,4 +79,15 @@
     STAssertEqualObjects([stat frequencyDistributionWithPartitions:4], expect3, nil);
 }
 
+- (void)testFrequencyDistributionWithBuckets {
+    [stat addDataFromArray:[@"9 3.3 1 5 2" componentsSeparatedByString:@" "]];
+    id expect = [NSDictionary dictionaryWithObjectsAndKeys:
+                 keyval(10, 3),
+                 keyval(3.2, 2),
+                 nil];
+
+    id buckets = [@"10 3.2" componentsSeparatedByString:@" "];
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets], expect, nil);    
+}
+
 @end

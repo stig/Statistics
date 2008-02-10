@@ -48,5 +48,6 @@
 - (double)median;
 
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x;
+- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x;
 
 @end
