@@ -38,3 +38,12 @@
 - (void)addDataFromArray:(NSArray*)x;
 
 @end
+
+@interface SBFullStatistics : SBStatistics
+{
+    NSMutableArray *data;
+}
+
+- (double)median;
+
+@end

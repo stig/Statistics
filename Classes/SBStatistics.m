@@ -80,18 +80,4 @@
     return sqrt([self biasedVariance]);
 }
 
-/*
-- (double)median
-{
-    NSAssert([self count], nil);
-    
-    NSUInteger count = [self count];
-    NSArray *sorted = [self sortedArrayUsingSelector:@selector(compare:)];
-    if (count & 1)
-        return [[sorted objectAtIndex:count / 2 - 1] doubleValue];
-    
-    return ([[sorted objectAtIndex:count / 2 - 1] doubleValue] + [[sorted objectAtIndex:count / 2] doubleValue]) / 2;
-}
-
- */
 @end

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		537E56FC0D5F174C00CBA66D /* SBStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 537E56FA0D5F174C00CBA66D /* SBStatistics.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		537E56FD0D5F174C00CBA66D /* SBStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 537E56FB0D5F174C00CBA66D /* SBStatistics.m */; };
+		537E57590D5F329F00CBA66D /* SBFullStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 537E57580D5F329F00CBA66D /* SBFullStatistics.m */; };
+		537E575D0D5F339700CBA66D /* Full.m in Sources */ = {isa = PBXBuildFile; fileRef = 537E575C0D5F339700CBA66D /* Full.m */; };
 		5385A3000D5DC0C6004FDCD0 /* Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A2FF0D5DC0C6004FDCD0 /* Stream.m */; };
 		5385A30D0D5DC338004FDCD0 /* Statistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 5385A30B0D5DC338004FDCD0 /* Statistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5385A3E40D5DCC50004FDCD0 /* Statistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Statistics.framework */; };
@@ -34,9 +36,11 @@
 		32DBCF5E0370ADEE00C91783 /* Statistics_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics_Prefix.pch; sourceTree = "<group>"; };
 		537E56FA0D5F174C00CBA66D /* SBStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStatistics.h; sourceTree = "<group>"; };
 		537E56FB0D5F174C00CBA66D /* SBStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStatistics.m; sourceTree = "<group>"; };
+		537E57580D5F329F00CBA66D /* SBFullStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFullStatistics.m; sourceTree = "<group>"; };
+		537E575C0D5F339700CBA66D /* Full.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Full.m; sourceTree = "<group>"; };
 		5385A2E60D5DBFA9004FDCD0 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5385A2E70D5DBFA9004FDCD0 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
-		5385A2FE0D5DC0C6004FDCD0 /* Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stream.h; sourceTree = "<group>"; };
+		5385A2FE0D5DC0C6004FDCD0 /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
 		5385A2FF0D5DC0C6004FDCD0 /* Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stream.m; sourceTree = "<group>"; };
 		5385A30B0D5DC338004FDCD0 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 				5385A30B0D5DC338004FDCD0 /* Statistics.h */,
 				537E56FA0D5F174C00CBA66D /* SBStatistics.h */,
 				537E56FB0D5F174C00CBA66D /* SBStatistics.m */,
+				537E57580D5F329F00CBA66D /* SBFullStatistics.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -144,8 +149,9 @@
 		5385A2DE0D5DBF8D004FDCD0 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				5385A2FE0D5DC0C6004FDCD0 /* Stream.h */,
+				5385A2FE0D5DC0C6004FDCD0 /* Tests.h */,
 				5385A2FF0D5DC0C6004FDCD0 /* Stream.m */,
+				537E575C0D5F339700CBA66D /* Full.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -262,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5385A3000D5DC0C6004FDCD0 /* Stream.m in Sources */,
+				537E575D0D5F339700CBA66D /* Full.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				537E56FD0D5F174C00CBA66D /* SBStatistics.m in Sources */,
+				537E57590D5F329F00CBA66D /* SBFullStatistics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

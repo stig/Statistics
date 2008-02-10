@@ -6,7 +6,7 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import "Stream.h"
+#import "Tests.h"
 #import <Statistics/Statistics.h>
 
 
@@ -110,19 +110,5 @@
     [stat addDataFromArray:[@"1 2 3 4" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat biasedStandardDeviation], sqrt(5/4.0), 1e-6, nil);    
 }
-
-
-/*
-- (void)testMedian {
-    values = [@"9 3.3 1 2 2" componentsSeparatedByString:@" "];
-    STAssertEqualsWithAccuracy([values median], 2.0, 1e-6, nil);
-
-    values = [@"9 4 3.3 1 2 2" componentsSeparatedByString:@" "];
-    STAssertEqualsWithAccuracy([values median], (3.3 + 2)/2, 1e-6, nil);
-
-    values = [@"9 4 -3.3 1 2 2" componentsSeparatedByString:@" "];
-    STAssertEqualsWithAccuracy([values median], 2.0, 1e-6, nil);
-}
-*/
 
 @end

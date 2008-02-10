@@ -9,9 +9,14 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 @class SBStatistics;
+@class SBFullStatistics;
 
 @interface Stream : SenTestCase {
     SBStatistics *stat;
 }
+@end
 
+@interface Full : SenTestCase {
+    SBFullStatistics *stat;
+}
 @end
