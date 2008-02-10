@@ -29,17 +29,17 @@
     return self;
 }
 
+- (void)addDataFromArray:(NSArray*)array
+{
+    for (id x in array)
+        [self addData:x];
+}
+
 - (void)addData:(id)x
 {
-    // Let us add an array of things in one fell swoop.
-    if ([x isKindOfClass:[NSArray class]]) {
-        for (id y in x)
-            [self addData:y];
-        return;
-    }
+    NSAssert([x respondsToSelector:@selector(doubleValue)], @"Data must respond to -doubleValue");
     
     double d = [x doubleValue];
-    
     if (d < min) {
         min = d;
         mindex = count;

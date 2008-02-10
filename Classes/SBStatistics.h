@@ -35,5 +35,6 @@
 - (double)biasedStandardDeviation;
 
 - (void)addData:(id)x;
+- (void)addDataFromArray:(NSArray*)x;
 
 @end
