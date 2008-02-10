@@ -11,6 +11,6 @@
 
 @interface NSMutableDictionary (SBMutableDictionary)
 
-- (void)incrementValueForKey:(id)key;
+- (void)incrementValueForNumber:(NSNumber*)key;
 
 @end

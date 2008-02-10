@@ -30,6 +30,8 @@
 
 - (void)addData:(id)x
 {
+    if (![x isKindOfClass:[NSNumber class]])
+        x = [NSNumber numberWithDouble:[x doubleValue]];
     [super addData:x];
     [data addObject:x];
 }
@@ -40,7 +42,7 @@
 {
     id freq = [NSMutableDictionary dictionaryWithCapacity:count];
     for (id x in data)
-        [freq incrementValueForKey:x];
+        [freq incrementValueForNumber:x];
     return [[[freq keysSortedByValueUsingSelector:@selector(compare:)] lastObject] doubleValue];
 }
 
