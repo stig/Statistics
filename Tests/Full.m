@@ -9,6 +9,8 @@
 #import "Tests.h"
 #import <Statistics/Statistics.h>
 
+#define keyval(k, v) [NSNumber numberWithDouble:v], [NSNumber numberWithDouble:k]
+
 
 @implementation Full
 
@@ -49,5 +51,14 @@
      [stat addData:@"-4"];
      STAssertEqualsWithAccuracy([stat median], 2.0, 1e-6, nil);
  }
+
+- (void)testFrequencyDistribution {
+    [stat addDataFromArray:[@"9 3.3 1 5 2" componentsSeparatedByString:@" "]];
+    id expect = [NSDictionary dictionaryWithObjectsAndKeys:
+                 keyval(9, 1),
+                 keyval(5, 4),
+                 nil];
+    STAssertEqualObjects([stat frequencyDistributionWithPartitions:2], expect, nil);
+}
 
 @end

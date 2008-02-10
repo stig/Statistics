@@ -41,7 +41,7 @@
 - (double)mode
 {
     id freq = [NSMutableDictionary dictionaryWithCapacity:count];
-    for (id x in data)
+    for (NSNumber *x in data)
         [freq incrementValueForNumber:x];
     return [[[freq keysSortedByValueUsingSelector:@selector(compare:)] lastObject] doubleValue];
 }
@@ -52,6 +52,30 @@
     if (count & 1)
         return [[sorted objectAtIndex:count / 2 - 1] doubleValue];    
     return ([[sorted objectAtIndex:count / 2 - 1] doubleValue] + [[sorted objectAtIndex:count / 2] doubleValue]) / 2;
+}
+
+- (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x
+{
+    id freq = [NSMutableDictionary dictionaryWithCapacity:x];
+    
+    // First create all the buckets in the range
+    id buckets = [NSMutableArray arrayWithCapacity:x];
+    double interval = self.range / x;
+    for (double bucket = self.max; bucket > self.min; bucket -= interval) {
+        NSNumber *b = [NSNumber numberWithDouble:bucket];
+        [freq setObject:[NSNumber numberWithInt:0] forKey:b];
+        [buckets insertObject:b atIndex:0];
+    }
+
+    // Now determine the frequency for each bucket
+    for (NSNumber *n in data)
+        for (NSNumber *b in buckets)
+            if ([b compare:n] >= 0) {
+                [freq incrementValueForNumber:b];
+                break;
+            }
+
+    return freq;
 }
 
 @end

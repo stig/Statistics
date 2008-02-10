@@ -47,4 +47,6 @@
 - (double)mode;
 - (double)median;
 
+- (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x;
+
 @end
