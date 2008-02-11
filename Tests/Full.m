@@ -90,4 +90,11 @@
     STAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets], expect, nil);    
 }
 
+- (void)testTrimmedMean {
+    [stat addDataFromArray:[@"4 108 4 4 4 4 4 4 0 4" componentsSeparatedByString:@" "]];
+    STAssertEquals(stat.count, (NSUInteger)10, nil);
+    STAssertEqualsWithAccuracy([stat trimmedMeanWithPercentile:0.1], 4.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat trimmedMeanWithPercentile:0.05], 14.0, 1e-6, nil);
+}
+
 @end

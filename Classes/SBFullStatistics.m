@@ -93,4 +93,22 @@
     return freq;
 }
 
+- (double)trimmedMeanWithPercentile:(double)x
+{
+    NSAssert(x > 0 && x < 1.0, @"Contract violation");
+    
+    NSUInteger bound = x * count;
+    if (!bound || bound == count)
+        return self.mean;
+    
+    id sorted = [data sortedArrayUsingSelector:@selector(compare:)];
+    id trimmed = [sorted subarrayWithRange:NSMakeRange(bound, count-bound-1)];
+    
+    double trimmedMean = 0.0;
+    NSUInteger i = 0;
+    for (NSNumber *n in trimmed)
+        trimmedMean += ([n doubleValue] - trimmedMean) / ++i;
+    return trimmedMean;
+}
+
 @end
