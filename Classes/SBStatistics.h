@@ -47,6 +47,7 @@
 - (double)mode;
 - (double)median;
 - (double)trimmedMeanWithPercentile:(double)x;
+- (double)trimmedMeanWithHighPercentile:(double)x low:(double)y;
 
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x;
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x;

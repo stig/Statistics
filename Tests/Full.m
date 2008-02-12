@@ -97,4 +97,12 @@
     STAssertEqualsWithAccuracy([stat trimmedMeanWithPercentile:0.05], 14.0, 1e-6, nil);
 }
 
+- (void)testTrimmedMeanHighLow {
+    [stat addDataFromArray:[@"0 15 15 15 35" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat trimmedMeanWithHighPercentile:0.2 low:0.0], 10.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat trimmedMeanWithHighPercentile:0.0 low:0.2], 20.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat trimmedMeanWithHighPercentile:0.2 low:0.2], 15.0, 1e-6, nil);
+}
+
+
 @end

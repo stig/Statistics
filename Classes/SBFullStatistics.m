@@ -95,14 +95,22 @@
 
 - (double)trimmedMeanWithPercentile:(double)x
 {
-    NSAssert(x > 0 && x < 1.0, @"Contract violation");
-    
-    NSUInteger bound = x * count;
-    if (!bound || bound == count)
+    NSAssert1(x > 0 && x < 1.0, @"Percentile must be 0 < x < 1, was %u", x);
+    return [self trimmedMeanWithHighPercentile:x low:x];
+}
+
+- (double)trimmedMeanWithHighPercentile:(double)x low:(double)y
+{
+    NSAssert1(x >= 0 && x <= 1.0, @"High percentile must be 0 <= x <= 1, was %u", x);
+    NSAssert1(y >= 0 && y <= 1.0, @"Low percentile must be 0 <= x <= 1, was %u", y);
+
+    NSUInteger hibound = x * count;
+    NSUInteger lobound = y * count;
+    if (!hibound && !lobound)
         return self.mean;
     
     id sorted = [data sortedArrayUsingSelector:@selector(compare:)];
-    id trimmed = [sorted subarrayWithRange:NSMakeRange(bound, count-bound-1)];
+    id trimmed = [sorted subarrayWithRange:NSMakeRange(lobound, count-hibound-1)];
     
     double trimmedMean = 0.0;
     NSUInteger i = 0;
