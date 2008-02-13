@@ -23,6 +23,7 @@
 - (void)dealloc
 {
     [data release];
+    [sortedData release];
     [super dealloc];
 }
 
@@ -34,6 +35,25 @@
         x = [NSNumber numberWithDouble:[x doubleValue]];
     [super addData:x];
     [data addObject:x];
+    
+    // Invalidate cached data
+    [sortedData release];
+    sortedData = nil;
+}
+
+#pragma mark Returning data
+
+- (NSArray*)data
+{
+    return [[data copy] autorelease];
+}
+
+- (NSArray*)sortedData
+{
+    // Do we have cached sorted data? use it
+    if (sortedData)
+        return [[sortedData retain] autorelease];
+    return sortedData = [[data sortedArrayUsingSelector:@selector(compare:)] retain];
 }
 
 #pragma mark Statistics
@@ -48,7 +68,7 @@
 
 - (double)median
 {
-    NSArray *sorted = [data sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *sorted = [self sortedData];
     if (count & 1)
         return [[sorted objectAtIndex:count / 2 - 1] doubleValue];    
     return ([[sorted objectAtIndex:count / 2 - 1] doubleValue] + [[sorted objectAtIndex:count / 2] doubleValue]) / 2;
@@ -73,23 +93,29 @@
     id buckets = [NSMutableArray arrayWithCapacity:[x count]];
     for (id b in x)
         [buckets addObject:[NSNumber numberWithDouble:[b doubleValue]]];
-                               
-    // Make sure the buckets are sorted
-    buckets = [buckets sortedArrayUsingSelector:@selector(compare:)];
     
     // Create dictionary to hold frequency distribution and initialise each bucket
     id freq = [NSMutableDictionary dictionaryWithCapacity:[buckets count]];
     for (NSNumber *bucket in buckets)
         [freq setObject:[NSNumber numberWithInt:0] forKey:bucket];
-    
-    // Determine the frequency for each bucket
-    for (NSNumber *n in data)
-        for (NSNumber *b in buckets)
-            if ([b compare:n] >= 0) {
-                [freq incrementValueForNumber:b];
-                break;
-            }
-    
+
+    // Make sure the buckets are sorted, and prepare an iterator for them
+    buckets = [buckets sortedArrayUsingSelector:@selector(compare:)];
+    NSEnumerator *biter = [buckets objectEnumerator];
+    NSNumber *b = [biter nextObject];
+
+    // Determine the frequency for each bucket    
+    for (NSNumber *n in [self sortedData]) {
+    again:
+        if ([n compare:b] <= 0) {
+            [freq incrementValueForNumber:b];
+        } else {
+            b = [biter nextObject];
+            if (b)
+                goto again;
+        }
+    }
+
     return freq;
 }
 
@@ -109,8 +135,7 @@
     if (!hibound && !lobound)
         return self.mean;
     
-    id sorted = [data sortedArrayUsingSelector:@selector(compare:)];
-    id trimmed = [sorted subarrayWithRange:NSMakeRange(lobound, count-hibound-1)];
+    id trimmed = [[self sortedData] subarrayWithRange:NSMakeRange(lobound, count-hibound-1)];
     
     double trimmedMean = 0.0;
     NSUInteger i = 0;

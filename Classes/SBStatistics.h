@@ -42,6 +42,7 @@
 @interface SBFullStatistics : SBStatistics
 {
     NSMutableArray *data;
+    NSArray *sortedData;
 }
 
 - (double)mode;
@@ -51,5 +52,8 @@
 
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x;
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x;
+
+- (NSArray*)data;
+- (NSArray*)sortedData;
 
 @end

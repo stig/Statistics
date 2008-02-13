@@ -90,6 +90,18 @@
     STAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets], expect, nil);    
 }
 
+- (void)testFrequencyDistributionPerformance {
+    int n = 1e5;
+    int i;
+    for (i = 0; i < n; i++)
+        [stat addData:[NSNumber numberWithInt:random()]];
+    
+    id start = [NSDate date];
+    [stat frequencyDistributionWithPartitions:n/100];
+    STAssertTrue(-[start timeIntervalSinceNow] < 3.0, @"Should be quick");
+}
+
+
 - (void)testTrimmedMean {
     [stat addDataFromArray:[@"4 108 4 4 4 4 4 4 0 4" componentsSeparatedByString:@" "]];
     STAssertEquals(stat.count, (NSUInteger)10, nil);
@@ -103,6 +115,5 @@
     STAssertEqualsWithAccuracy([stat trimmedMeanWithHighPercentile:0.0 low:0.2], 20.0, 1e-6, nil);
     STAssertEqualsWithAccuracy([stat trimmedMeanWithHighPercentile:0.2 low:0.2], 15.0, 1e-6, nil);
 }
-
 
 @end
