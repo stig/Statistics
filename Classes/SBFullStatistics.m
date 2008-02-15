@@ -152,4 +152,18 @@
     return count / sum;
 }
 
+- (double)geometricMean
+{
+    double sum = 0.0;
+    NSUInteger i = 0;
+    for (NSNumber *n in data) {
+        if (i++)
+            sum *= [n doubleValue];
+        else
+            sum = [n doubleValue];
+        
+    }
+    return pow(sum, 1.0 / count);
+}
+
 @end

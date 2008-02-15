@@ -120,4 +120,9 @@
     STAssertEqualsWithAccuracy([stat harmonicMean], 8.926, 1e-3, nil);
 }
 
+- (void)testGeometricMean {
+    [stat addDataFromArray:[@"1 0.5 0.25" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat geometricMean], 0.5, 1e-6, nil);
+}
+
 @end
