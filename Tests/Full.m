@@ -101,7 +101,6 @@
     STAssertTrue(-[start timeIntervalSinceNow] < 3.0, @"Should be quick");
 }
 
-
 - (void)testTrimmedMean {
     [stat addDataFromArray:[@"4 108 4 4 4 4 4 4 0 4" componentsSeparatedByString:@" "]];
     STAssertEquals(stat.count, (NSUInteger)10, nil);
@@ -114,6 +113,11 @@
     STAssertEqualsWithAccuracy([stat trimmedMeanWithHighPercentile:0.2 low:0.0], 10.0, 1e-6, nil);
     STAssertEqualsWithAccuracy([stat trimmedMeanWithHighPercentile:0.0 low:0.2], 20.0, 1e-6, nil);
     STAssertEqualsWithAccuracy([stat trimmedMeanWithHighPercentile:0.2 low:0.2], 15.0, 1e-6, nil);
+}
+
+- (void)testHarmonicMean {
+    [stat addDataFromArray:[@"8 9 10" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat harmonicMean], 8.926, 1e-3, nil);
 }
 
 @end

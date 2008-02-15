@@ -144,4 +144,12 @@
     return trimmedMean;
 }
 
+- (double)harmonicMean
+{
+    double sum = 0.0;
+    for (NSNumber *n in data)
+        sum += 1 / [n doubleValue];
+    return count / sum;
+}
+
 @end
