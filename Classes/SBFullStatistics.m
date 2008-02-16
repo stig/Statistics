@@ -146,7 +146,7 @@
 
 - (double)harmonicMean
 {
-    double sum = 0.0;
+    long double sum = 0.0;
     for (NSNumber *n in data)
         sum += 1 / [n doubleValue];
     return count / sum;
@@ -154,15 +154,9 @@
 
 - (double)geometricMean
 {
-    double sum = 0.0;
-    NSUInteger i = 0;
-    for (NSNumber *n in data) {
-        if (i++)
+    long double sum = 1;
+    for (NSNumber *n in data)
             sum *= [n doubleValue];
-        else
-            sum = [n doubleValue];
-        
-    }
     return pow(sum, 1.0 / count);
 }
 
