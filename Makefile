@@ -18,8 +18,8 @@ enclosure: $(DMG)
 	@echo    ' type="application/octet-stream"/>'
 	@echo 	 "</item>"
 
-_site: Site/* Makefile
-	-rm -rf _site; cp -r Site _site
+_site: Documentation/* Makefile
+	-rm -rf _site; cp -r Documentation _site
 	-rm -rf _site/.svn
 	perl -pi -e 's{__DMGURL__}{$(DMGURL)}g' _site/*.*
 	perl -pi -e 's{__VERSION__}{$(VERSION)}g' _site/*.*
