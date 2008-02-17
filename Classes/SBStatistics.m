@@ -22,8 +22,7 @@
 - (id)init
 {
     if (self = [super init]) {
-        count = 0;
-        min = max = mean = pseudoVariance = nan(0);
+        min = max = mean = nan(0);
     }
     return self;
 }
@@ -41,9 +40,9 @@
     double d = [x doubleValue];
 
     if (!count) {
-        max = -INFINITY;
         min = INFINITY;
-        mean = pseudoVariance = 0;
+        max = -min;
+        mean = 0;
     }
     
     if (d < min) {
@@ -67,12 +66,16 @@
 
 - (double)variance
 {
-    return pseudoVariance / (count - 1);
+    if (count > 1)
+        return pseudoVariance / (count - 1);
+    return nan(0);
 }
 
 - (double)biasedVariance
 {
-    return pseudoVariance / count;    
+    if (count > 1)
+        return pseudoVariance / count;
+    return nan(0);
 }
 
 - (double)standardDeviation
