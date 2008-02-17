@@ -20,3 +20,9 @@
     SBFullStatistics *stat;
 }
 @end
+
+@interface Errors : SenTestCase {
+    SBFullStatistics *stat;
+}
+@end
+

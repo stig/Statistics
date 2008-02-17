@@ -17,6 +17,7 @@
 		5385A30D0D5DC338004FDCD0 /* Statistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 5385A30B0D5DC338004FDCD0 /* Statistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5385A3E40D5DCC50004FDCD0 /* Statistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Statistics.framework */; };
 		5385A3E60D5DCC6B004FDCD0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
+		53FA09A60D6862400038ED0A /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 53FA09A50D6862400038ED0A /* Errors.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		5385A2FE0D5DC0C6004FDCD0 /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
 		5385A2FF0D5DC0C6004FDCD0 /* Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stream.m; sourceTree = "<group>"; };
 		5385A30B0D5DC338004FDCD0 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
+		53FA09A50D6862400038ED0A /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Statistics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Statistics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -158,6 +160,7 @@
 				5385A2FE0D5DC0C6004FDCD0 /* Tests.h */,
 				5385A2FF0D5DC0C6004FDCD0 /* Stream.m */,
 				537E575C0D5F339700CBA66D /* Full.m */,
+				53FA09A50D6862400038ED0A /* Errors.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			files = (
 				5385A3000D5DC0C6004FDCD0 /* Stream.m in Sources */,
 				537E575D0D5F339700CBA66D /* Full.m in Sources */,
+				53FA09A60D6862400038ED0A /* Errors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

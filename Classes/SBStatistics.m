@@ -23,8 +23,7 @@
 {
     if (self = [super init]) {
         count = 0;
-        min = INFINITY;
-        max = -INFINITY;
+        min = max = mean = pseudoVariance = nan(0);
     }
     return self;
 }
@@ -40,6 +39,13 @@
     NSAssert([x respondsToSelector:@selector(doubleValue)], @"Data must respond to -doubleValue");
     
     double d = [x doubleValue];
+
+    if (!count) {
+        max = -INFINITY;
+        min = INFINITY;
+        mean = pseudoVariance = 0;
+    }
+    
     if (d < min) {
         min = d;
         mindex = count;
