@@ -105,4 +105,28 @@
     STAssertThrows([stat frequencyDistributionWithBuckets:[NSArray array]], nil);
 }
 
+- (void)testHarmonicMean {
+    STAssertTrue(isnan([stat harmonicMean]), nil);
+
+    [stat addData:@"1"];
+    STAssertFalse(isnan([stat harmonicMean]), nil);
+
+    [stat addData:@"0"];
+    STAssertTrue(isnan([stat harmonicMean]), nil);
+}
+
+- (void)testGeometricMean {
+    STAssertFalse(isnan([stat geometricMean]), nil);
+    
+    [stat addData:@"1"];
+    STAssertFalse(isnan([stat geometricMean]), nil);
+
+    [stat addData:@"0"];
+    STAssertFalse(isnan([stat geometricMean]), nil);
+
+    [stat addData:@"-1"];
+    STAssertTrue(isnan([stat geometricMean]), nil);
+}
+
+
 @end

@@ -162,16 +162,24 @@
 - (double)harmonicMean
 {
     long double sum = 0.0;
-    for (NSNumber *n in data)
-        sum += 1 / [n doubleValue];
+    for (NSNumber *n in data) {
+        double d = [n doubleValue];
+        if (d == 0)
+            return nan(0);
+        sum += 1 / d;
+    }
     return count / sum;
 }
 
 - (double)geometricMean
 {
     long double sum = 1;
-    for (NSNumber *n in data)
-            sum *= [n doubleValue];
+    for (NSNumber *n in data) {
+        double d = [n doubleValue];
+        if (d < 0)
+            return nan(0);
+        sum *= d;
+    }
     return pow(sum, 1.0 / count);
 }
 
