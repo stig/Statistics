@@ -63,11 +63,20 @@
     id freq = [NSMutableDictionary dictionaryWithCapacity:count];
     for (NSNumber *x in data)
         [freq incrementValueForNumber:x];
+
+    // No mode exists if all the numbers are unique
+    if ([freq count] == count)
+        return nan(0);
     return [[[freq keysSortedByValueUsingSelector:@selector(compare:)] lastObject] doubleValue];
 }
 
 - (double)median
 {
+    if (!count)
+        return nan(0);
+    if (count == 1)
+        return [[data lastObject] doubleValue];
+    
     NSArray *sorted = [self sortedData];
     if (count & 1)
         return [[sorted objectAtIndex:count / 2 - 1] doubleValue];    
@@ -76,12 +85,16 @@
 
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x
 {
-    // Calculate the range of each bucket
+    // Must have at least one partition, and at least one data point
+    if (!x || !count)
+        return nil;
+    
+    // Calculate the interval of each bucket
     double interval = self.range / x;
 
     // Create the buckets
-    id buckets = [NSMutableArray arrayWithCapacity:x];
-    for (double bucket = self.max; bucket > self.min; bucket -= interval)
+    id buckets = [NSMutableArray arrayWithObject:[NSNumber numberWithDouble:max]];
+    for (double bucket = self.max - interval; bucket > self.min; bucket -= interval)
         [buckets addObject:[NSNumber numberWithDouble:bucket]];
     
     return [self frequencyDistributionWithBuckets:buckets];
@@ -89,6 +102,8 @@
 
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x
 {
+    NSAssert([x count], @"Number of buckets must be greater than 0");
+
     // Buckets must be NSNumbers
     id buckets = [NSMutableArray arrayWithCapacity:[x count]];
     for (id b in x)

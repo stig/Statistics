@@ -22,7 +22,7 @@
     [stat release];
 }
 
-#pragma mark Tests
+#pragma mark SBStatistics
 
 - (void)testMin {
     STAssertTrue(isnan(stat.min), nil);
@@ -66,15 +66,43 @@
     STAssertTrue(isnan([stat biasedStandardDeviation]), nil);
 }
 
-- (void)testFrequencyDistribution {
-    STAssertEqualObjects([stat frequencyDistributionWithPartitions:3], [NSDictionary dictionary], nil);
+#pragma mark SBFullStatistics
 
+- (void)testMode {
+    STAssertTrue(isnan([stat mode]), nil);
+    [stat addData:@"1"];
+    STAssertTrue(isnan([stat mode]), nil);
+    [stat addData:@"-1"];
+    STAssertTrue(isnan([stat mode]), nil);
+    [stat addData:@"-1"];
+    STAssertFalse(isnan([stat mode]), nil);
+}
+
+- (void)testMedian {
+    STAssertTrue(isnan([stat median]), nil);
+    [stat addData:@"1"];
+    STAssertFalse(isnan([stat median]), nil);
+}
+
+- (void)testFrequencyDistributionWithPartitions {
+    STAssertNil([stat frequencyDistributionWithPartitions:3], nil);
+
+    [stat addData:@"1"];
+    STAssertNotNil([stat frequencyDistributionWithPartitions:3], nil);
+
+    STAssertNil([stat frequencyDistributionWithPartitions:0], nil);
+}
+
+- (void)testFrequencyDistributionWithBuckets {
     id buckets = [@"1 20" componentsSeparatedByString:@" "];
     id expected = [NSDictionary dictionaryWithObjectsAndKeys:
                    [NSNumber numberWithInt:0], [NSNumber numberWithInt:1],
                    [NSNumber numberWithInt:0], [NSNumber numberWithInt:20],
                    nil];
     STAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets], expected, nil);
+
+    STAssertThrows([stat frequencyDistributionWithBuckets:nil], nil);
+    STAssertThrows([stat frequencyDistributionWithBuckets:[NSArray array]], nil);
 }
 
 @end
