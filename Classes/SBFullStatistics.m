@@ -102,7 +102,7 @@
 
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x
 {
-    NSAssert([x count], @"Number of buckets must be greater than 0");
+    NSAssert([x count], @"No buckets given");
 
     // Buckets must be NSNumbers
     id buckets = [NSMutableArray arrayWithCapacity:[x count]];
