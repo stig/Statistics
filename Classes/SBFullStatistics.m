@@ -96,7 +96,7 @@
     if (!count)
         return nan(0);
     if (count == 1)
-        return [[data lastObject] doubleValue];
+        return self.mean;
     
     NSArray *sorted = [self sortedData];
     if (count & 1)
