@@ -112,7 +112,8 @@ href="http://svn.brautaset.org/Statistics/trunk/Classes/SBStatistics.m
 SBFullStatistics</a> class additionally provides the following
 methods:</p>
 
-<pre><code>// <a href="http://en.wikipedia.org/wiki/Mode_(statistics)">http://en.wikipedia.org/wiki/Mode_(statistics)</a>
+<pre><code>
+// <a href="http://en.wikipedia.org/wiki/Mode_(statistics)">http://en.wikipedia.org/wiki/Mode_(statistics)</a>
 - (double)mode;
 
 // <a href="http://en.wikipedia.org/wiki/Median">http://en.wikipedia.org/wiki/Median</a>
@@ -124,10 +125,6 @@ methods:</p>
 // <a href="http://en.wikipedia.org/wiki/Geometric_mean">http://en.wikipedia.org/wiki/Geometric_mean</a>
 - (double)geometricMean;
 
-// <a href="http://en.wikipedia.org/wiki/Truncated_mean">http://en.wikipedia.org/wiki/Truncated_mean</a>
-- (double)trimmedMeanWithPercentile:(double)x;
-- (double)trimmedMeanWithHighPercentile:(double)x low:(double)y;
-
 // <a href="http://en.wikipedia.org/wiki/Frequency_distribution">http://en.wikipedia.org/wiki/Frequency_distribution</a>
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x;
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x;
@@ -137,6 +134,14 @@ methods:</p>
 
 // Returns the data in sorted order
 - (NSArray*)sortedData;
+
+// Returns the data sans low and high outliers
+- (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h;
+
+// Return a new statistics object, with outliers removed from the data.
+// This can be used to calculate the truncated (trimmed) mean.
+// <a href="http://en.wikipedia.org/wiki/Truncated_mean">http://en.wikipedia.org/wiki/Truncated_mean</a>
+- (id)statisticsDiscardingLow:(double)l high:(double)h;
 </code></pre>
 
 <h2 id="download">Download</h2>

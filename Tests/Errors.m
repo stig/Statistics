@@ -84,15 +84,6 @@
     STAssertFalse(isnan([stat median]), nil);
 }
 
-- (void)testFrequencyDistributionWithPartitions {
-    STAssertNil([stat frequencyDistributionWithPartitions:3], nil);
-
-    [stat addData:@"1"];
-    STAssertNotNil([stat frequencyDistributionWithPartitions:3], nil);
-
-    STAssertNil([stat frequencyDistributionWithPartitions:0], nil);
-}
-
 - (void)testFrequencyDistributionWithBuckets {
     id buckets = [@"1 20" componentsSeparatedByString:@" "];
     id expected = [NSDictionary dictionaryWithObjectsAndKeys:

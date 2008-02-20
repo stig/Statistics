@@ -104,23 +104,6 @@
     return ([[sorted objectAtIndex:count / 2 - 1] doubleValue] + [[sorted objectAtIndex:count / 2] doubleValue]) / 2;
 }
 
-- (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x
-{
-    // Must have at least one partition, and at least one data point
-    if (!x || !count)
-        return nil;
-    
-    // Calculate the interval of each bucket
-    double interval = self.range / x;
-
-    // Create the buckets
-    id buckets = [NSMutableArray arrayWithObject:[NSNumber numberWithDouble:max]];
-    for (double bucket = self.max - interval; bucket > self.min; bucket -= interval)
-        [buckets addObject:[NSNumber numberWithDouble:bucket]];
-    
-    return [self frequencyDistributionWithBuckets:buckets];
-}
-
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x
 {
     NSAssert([x count], @"No buckets given");
@@ -178,5 +161,24 @@
     }
     return count ? pow(sum, 1.0 / count) : nan(0);
 }
+
+#pragma mark Buckets
+
+- (NSArray*)bucketsWithCount:(NSUInteger)x
+{
+    return [self bucketsWithInterval:self.range / x];
+}
+
+- (NSArray*)bucketsWithInterval:(double)interval
+{
+    if (interval > 0) {
+        id buckets = [NSMutableArray arrayWithObject:[NSNumber numberWithDouble:max]];
+        for (double bucket = self.max - interval; bucket > self.min; bucket -= interval)
+            [buckets addObject:[NSNumber numberWithDouble:bucket]];
+        return buckets;
+    }
+    return nil;
+}
+
 
 @end

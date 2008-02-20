@@ -9,6 +9,7 @@
 #import "Tests.h"
 #import <Statistics/Statistics.h>
 
+#define num(n) [NSNumber numberWithDouble:n]
 #define keyval(k, v) [NSNumber numberWithDouble:v], [NSNumber numberWithDouble:k]
 
 
@@ -50,7 +51,21 @@
      [stat addData:@"-4"];
      [stat addData:@"-4"];
      STAssertEqualsWithAccuracy([stat median], 2.0, 1e-6, nil);
- }
+}
+
+- (void)testFrequencyDistributionBuckets {
+    [stat addDataFromArray:[@"9 3.3 1 5 2" componentsSeparatedByString:@" "]];
+    id expect = [NSArray arrayWithObjects:num(9), num(5), nil];
+    STAssertEqualObjects([stat bucketsWithCount:2], expect, nil);
+
+    id expect2 = [NSArray arrayWithObjects:num(9), num(7), num(5), num(3), nil];
+    STAssertEqualObjects([stat bucketsWithCount:4], expect2, nil);
+    
+    // Now add a negative number.
+    [stat addDataFromArray:[@"-9" componentsSeparatedByString:@" "]];
+    id expect3 = [NSArray arrayWithObjects:num(9), num(4.5), num(0), num(-4.5), nil];
+    STAssertEqualObjects([stat bucketsWithCount:4], expect3, nil);
+}
 
 - (void)testFrequencyDistribution {
     [stat addDataFromArray:[@"9 3.3 1 5 2" componentsSeparatedByString:@" "]];
@@ -58,7 +73,7 @@
                  keyval(9, 1),
                  keyval(5, 4),
                  nil];
-    STAssertEqualObjects([stat frequencyDistributionWithPartitions:2], expect, nil);
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:2]], expect, nil);
 
     id expect2 = [NSDictionary dictionaryWithObjectsAndKeys:
                   keyval(9, 1),
@@ -66,7 +81,7 @@
                   keyval(5, 2),
                   keyval(3, 2),
                   nil];
-    STAssertEqualObjects([stat frequencyDistributionWithPartitions:4], expect2, nil);
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4]], expect2, nil);
     
     // Now add a negative number.
     [stat addDataFromArray:[@"-9" componentsSeparatedByString:@" "]];
@@ -76,10 +91,10 @@
                   keyval(0, 0),
                   keyval(-4.5, 1),
                   nil];
-    STAssertEqualObjects([stat frequencyDistributionWithPartitions:4], expect3, nil);
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4]], expect3, nil);
 }
 
-- (void)testFrequencyDistributionWithBuckets {
+- (void)testFrequencyDistributionCustomBuckets {
     [stat addDataFromArray:[@"9 3.3 1 5 2" componentsSeparatedByString:@" "]];
     id expect = [NSDictionary dictionaryWithObjectsAndKeys:
                  keyval(10, 3),
@@ -97,7 +112,7 @@
         [stat addData:[NSNumber numberWithInt:random()]];
     
     id start = [NSDate date];
-    [stat frequencyDistributionWithPartitions:n/100];
+    [stat frequencyDistributionWithBuckets:[stat bucketsWithCount:n/100]];
     STAssertTrue(-[start timeIntervalSinceNow] < 3.0, @"Should be quick");
 }
 
