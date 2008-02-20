@@ -19,6 +19,8 @@
 @synthesize max;
 @synthesize mean;
 
+#pragma mark Initialisation
+
 - (id)init
 {
     if (self = [super init]) {
@@ -26,6 +28,8 @@
     }
     return self;
 }
+
+#pragma mark Adding data
 
 - (void)addDataFromArray:(NSArray*)array
 {
@@ -58,6 +62,8 @@
     mean += (d - oldMean) / ++count;
     pseudoVariance += (d - mean) * (d - oldMean);
 }
+
+#pragma mark Methods
 
 - (double)range
 {
