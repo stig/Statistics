@@ -72,7 +72,7 @@
 - (double)geometricMean;
 
 // http://en.wikipedia.org/wiki/Frequency_distribution
-- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x;
+- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x cumulative:(BOOL)y;
 
 // Conveniently create buckets for frequency distribution calculations.
 - (NSArray*)bucketsWithCount:(NSUInteger)x;

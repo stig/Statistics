@@ -104,7 +104,7 @@
     return ([[sorted objectAtIndex:count / 2 - 1] doubleValue] + [[sorted objectAtIndex:count / 2] doubleValue]) / 2;
 }
 
-- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x
+- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x cumulative:(BOOL)cumulative
 {
     NSAssert([x count], @"No buckets given");
 
@@ -135,6 +135,16 @@
         }
     }
 
+    if (cumulative) {
+        NSUInteger total = 0;
+        id cfreq = [NSMutableDictionary dictionaryWithCapacity:[buckets count]];
+        for (id key in buckets) {
+            total += [[freq objectForKey:key] unsignedIntValue];
+            [cfreq setObject:[NSNumber numberWithUnsignedInteger:total] forKey:key];
+        }
+        freq = cfreq;
+    }
+    
     return freq;
 }
 

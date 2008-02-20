@@ -90,10 +90,10 @@
                    [NSNumber numberWithInt:0], [NSNumber numberWithInt:1],
                    [NSNumber numberWithInt:0], [NSNumber numberWithInt:20],
                    nil];
-    STAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets], expected, nil);
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets cumulative:NO], expected, nil);
 
-    STAssertThrows([stat frequencyDistributionWithBuckets:nil], nil);
-    STAssertThrows([stat frequencyDistributionWithBuckets:[NSArray array]], nil);
+    STAssertThrows([stat frequencyDistributionWithBuckets:nil cumulative:NO], nil);
+    STAssertThrows([stat frequencyDistributionWithBuckets:[NSArray array] cumulative:NO], nil);
 }
 
 - (void)testHarmonicMean {

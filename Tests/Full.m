@@ -73,7 +73,7 @@
                  keyval(9, 1),
                  keyval(5, 4),
                  nil];
-    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:2]], expect, nil);
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:2] cumulative:NO], expect, nil);
 
     id expect2 = [NSDictionary dictionaryWithObjectsAndKeys:
                   keyval(9, 1),
@@ -81,7 +81,7 @@
                   keyval(5, 2),
                   keyval(3, 2),
                   nil];
-    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4]], expect2, nil);
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4] cumulative:NO], expect2, nil);
     
     // Now add a negative number.
     [stat addDataFromArray:[@"-9" componentsSeparatedByString:@" "]];
@@ -91,18 +91,35 @@
                   keyval(0, 0),
                   keyval(-4.5, 1),
                   nil];
-    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4]], expect3, nil);
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4] cumulative:NO], expect3, nil);
 }
 
-- (void)testFrequencyDistributionCustomBuckets {
+
+- (void)testFrequencyDistributionCumulative {
     [stat addDataFromArray:[@"9 3.3 1 5 2" componentsSeparatedByString:@" "]];
     id expect = [NSDictionary dictionaryWithObjectsAndKeys:
-                 keyval(10, 3),
-                 keyval(3.2, 2),
+                 keyval(9, 5),
+                 keyval(5, 4),
                  nil];
-
-    id buckets = [@"10 3.2" componentsSeparatedByString:@" "];
-    STAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets], expect, nil);    
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:2] cumulative:YES], expect, nil);
+    
+    id expect2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                  keyval(9, 5),
+                  keyval(7, 4),
+                  keyval(5, 4),
+                  keyval(3, 2),
+                  nil];
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4] cumulative:YES], expect2, nil);
+    
+    // Now add a negative number.
+    [stat addDataFromArray:[@"-9" componentsSeparatedByString:@" "]];
+    id expect3 = [NSDictionary dictionaryWithObjectsAndKeys:
+                  keyval(9, 6),
+                  keyval(4.5, 4),
+                  keyval(0, 1),
+                  keyval(-4.5, 1),
+                  nil];
+    STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4] cumulative:YES], expect3, nil);
 }
 
 - (void)testFrequencyDistributionPerformance {
@@ -112,7 +129,7 @@
         [stat addData:[NSNumber numberWithInt:random()]];
     
     id start = [NSDate date];
-    [stat frequencyDistributionWithBuckets:[stat bucketsWithCount:n/100]];
+    [stat frequencyDistributionWithBuckets:[stat bucketsWithCount:n/100] cumulative:NO];
     STAssertTrue(-[start timeIntervalSinceNow] < 3.0, @"Should be quick");
 }
 
