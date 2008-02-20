@@ -20,8 +20,10 @@
     double pseudoVariance;
 }
 
-// Methods for adding data points
+// Adds a data point. x must respond to -doubleValue.
 - (void)addData:(id)x;
+
+// Adds data points from the given array. Calls -addData: repeatedly.
 - (void)addDataFromArray:(NSArray*)x;
 
 // Count of data points
@@ -77,8 +79,10 @@
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x;
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x;
 
-// returns the raw data points
+// Returns the data in the order it was added
 - (NSArray*)data;
+
+// Returns the data in sorted order
 - (NSArray*)sortedData;
 
 @end

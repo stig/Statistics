@@ -83,11 +83,11 @@ it here. The <a
 href="http://svn.brautaset.org/Statistics/trunk/Classes/SBStatistics.m
 "> SBStatistics</a> class provides the following methods:</p>
 
-<pre><code>// Adds a data point (x must respond to -doubleValue) and
-// updates internal statistics on the fly.
+<pre><code>
+// Adds a data point. x must respond to -doubleValue.
 - (void)addData:(id)x;
 
-// add data points from array x. Calls -addData: repeatedly.
+// Adds data points from the given array. Calls -addData: repeatedly.
 - (void)addDataFromArray:(NSArray*)x;
 
 - (NSUInteger)count;    // number of data points
