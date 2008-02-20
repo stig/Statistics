@@ -72,8 +72,8 @@
 - (double)geometricMean;
 
 // http://en.wikipedia.org/wiki/Truncated_mean
-- (double)trimmedMeanWithPercentile:(double)x;
-- (double)trimmedMeanWithHighPercentile:(double)x low:(double)y;
+- (double)trimmedMeanByDiscarding:(double)x;
+- (double)trimmedMeanByDiscardingLow:(double)x high:(double)y;
 
 // http://en.wikipedia.org/wiki/Frequency_distribution
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x;

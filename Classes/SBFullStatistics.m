@@ -134,19 +134,19 @@
     return freq;
 }
 
-- (double)trimmedMeanWithPercentile:(double)x
+- (double)trimmedMeanByDiscarding:(double)x
 {
-    NSAssert1(x > 0 && x < 1.0, @"Percentile must be 0 < x < 1, was %u", x);
-    return [self trimmedMeanWithHighPercentile:x low:x];
+    NSAssert1(x > 0 && x < 1.0, @"Bound must be 0 < x < 1, was %u", x);
+    return [self trimmedMeanByDiscardingLow:x high:x];
 }
 
-- (double)trimmedMeanWithHighPercentile:(double)x low:(double)y
+- (double)trimmedMeanByDiscardingLow:(double)l high:(double)h
 {
-    NSAssert1(x >= 0 && x <= 1.0, @"High percentile must be 0 <= x <= 1, was %u", x);
-    NSAssert1(y >= 0 && y <= 1.0, @"Low percentile must be 0 <= x <= 1, was %u", y);
+    NSAssert1(h >= 0 && h <= 1.0, @"High bound must be 0 <= x <= 1, was %u", h);
+    NSAssert1(l >= 0 && l <= 1.0, @"Low bound must be 0 <= x <= 1, was %u", l);
 
-    NSUInteger hibound = x * count;
-    NSUInteger lobound = y * count;
+    NSUInteger hibound = h * count;
+    NSUInteger lobound = l * count;
     if (!hibound && !lobound)
         return self.mean;
     
