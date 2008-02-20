@@ -180,7 +180,7 @@
             return nan(0);
         sum *= d;
     }
-    return pow(sum, 1.0 / count);
+    return count ? pow(sum, 1.0 / count) : nan(0);
 }
 
 @end

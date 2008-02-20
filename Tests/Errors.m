@@ -116,7 +116,7 @@
 }
 
 - (void)testGeometricMean {
-    STAssertFalse(isnan([stat geometricMean]), nil);
+    STAssertTrue(isnan([stat geometricMean]), nil);
     
     [stat addData:@"1"];
     STAssertFalse(isnan([stat geometricMean]), nil);
