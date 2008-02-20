@@ -12,8 +12,8 @@
 
 <div id="toc">
 <ul>
+<li><a href="#">Description</a></li>
 <li><a href="#synopsis">Synopsis</a></li>
-<li><a href="#description">Description</a></li>
 <li><a href="#methods">Methods</a></li>
 <li><a href="#download">Download</a></li>
 <li><a href="#author">Author</a></li>
@@ -22,7 +22,19 @@
 
 <p><a href="http://code.brautaset.org/Statistics/">Statistics</a> is a
 Foundation framework for calculating&mdash;no points for guessing
-it&mdash;statistics. </p>
+it&mdash;statistics. It is inspired by Perl's <a
+href="http://search.cpan.org/dist/Statistics-Descriptive/">
+Statistics::Descriptive</a> and like it consists of two main
+classes.</p>
+
+<p>SBStatistics calculates a range of statistical measurements on the
+fly as each data point is added. The data is then immediately
+discarded, giving it a very low memory footprint.</p>
+
+<p>SBFullStatistics in turn subclasses SBStatistics and records each
+data point. It is therefore able to provide more advanced statistical
+functions. The trade-off is that it can consume a lot of memory if you
+are collecting a lot of data.</p>
 
 <h2 id="synopsis">Synopsis</h2>
 
@@ -58,21 +70,32 @@ NSLog([fmt componentsJoinedByString:@"\n"],
 );
 </code></pre>
 
-<h2 id="description">Description</h2>
+<p>The SBFullStatistics class can do other interesting stuff:</p>
 
-<p>This Foundation statistics framework is inspired by Perl's <a
-href="http://search.cpan.org/dist/Statistics-Descriptive/">
-Statistics::Descriptive</a> and like it consists of two main
-classes.</p>
+<pre><code>
+// Create statistics object
+SBFullStatistics *stat = [SBFullStatistics new];
 
-<p>SBStatistics calculates a range of statistical measurements on the
-fly as each data point is added. The data is then immediately
-discarded, giving it a very low memory footprint.</p>
+// Add some random data.
+for (int i = 0; i &lt; 1e4; i++)
+    [stat addData:[NSNumber numberWithDouble:random()]];
 
-<p>SBFullStatistics in turn subclasses SBStatistics and records each
-data point. It is therefore able to provide more advanced statistical
-functions. The trade-off is that it can consume a lot of memory if you
-are collecting a lot of data.</p>
+// Produce 10 equally-sized buckets covering the entire range
+id buckets = [stat bucketsWithCount:10];
+
+// Calculate frequency distributions.
+id freq = [stat frequencyDistributionWithBuckets:buckets
+                                      cumulative:NO];
+id cfreq = [stat frequencyDistributionWithBuckets:buckets
+                                       cumulative:YES];
+
+// Iterate over the buckets and output the values
+for (id bucket in buckets)
+    NSLog(@"%@ =&gt; %@ =&gt; %@",
+        bucket,
+        [freq objectForKey:bucket],
+        [cfreq objectForKey:bucket]);
+</code></pre>
 
 <h2 id="methods">Methods</h2>
 
@@ -126,9 +149,10 @@ methods:</p>
 - (double)geometricMean;
 
 // <a href="http://en.wikipedia.org/wiki/Frequency_distribution">http://en.wikipedia.org/wiki/Frequency_distribution</a>
-- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x cumulative:(BOOL)y;
+- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x
+                                       cumulative:(BOOL)y;
 
-// Conveniently create buckets for frequency distribution calculations.
+// Create buckets for frequency distribution calculations.
 - (NSArray*)bucketsWithCount:(NSUInteger)x;
 - (NSArray*)bucketsWithInterval:(double)x;
 
@@ -141,9 +165,9 @@ methods:</p>
 // Returns the data sans low and high outliers
 - (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h;
 
-// Return a new statistics object, with outliers removed from the data.
+// Return a new object with outliers removed from the data.
 // This can be used to calculate the truncated (trimmed) mean.
-// <a href="http://en.wikipedia.org/wiki/Truncated_mean">http://en.wikipedia.org/wiki/Truncated_mean</a>
+// (<a href="http://en.wikipedia.org/wiki/Truncated_mean">http://en.wikipedia.org/wiki/Truncated_mean</a>)
 - (id)statisticsDiscardingLow:(double)l high:(double)h;
 </code></pre>
 
