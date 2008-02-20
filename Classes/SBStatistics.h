@@ -71,10 +71,6 @@
 // http://en.wikipedia.org/wiki/Geometric_mean
 - (double)geometricMean;
 
-// http://en.wikipedia.org/wiki/Truncated_mean
-- (double)trimmedMeanByDiscarding:(double)x;
-- (double)trimmedMeanByDiscardingLow:(double)x high:(double)y;
-
 // http://en.wikipedia.org/wiki/Frequency_distribution
 - (NSDictionary*)frequencyDistributionWithPartitions:(NSUInteger)x;
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x;
@@ -86,6 +82,11 @@
 - (NSArray*)sortedData;
 
 // Returns the data sans low and high outliers
-- (NSArray*)sortedDataDiscardingLow:(double)x high:(double)y;
+- (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h;
+
+// Return a new statistics object, with outliers removed from the data.
+// This can be used to calculate the truncated (trimmed) mean.
+// http://en.wikipedia.org/wiki/Truncated_mean
+- (id)statisticsDiscardingLow:(double)l high:(double)h;
 
 @end

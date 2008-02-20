@@ -113,20 +113,6 @@
     STAssertEquals([[sub lastObject] intValue], (int)5, nil);
 }
 
-- (void)testTrimmedMean {
-    [stat addDataFromArray:[@"4 108 4 4 4 4 4 4 0 4" componentsSeparatedByString:@" "]];
-    STAssertEquals(stat.count, (NSUInteger)10, nil);
-    STAssertEqualsWithAccuracy([stat trimmedMeanByDiscarding:0.1], 4.0, 1e-6, nil);
-    STAssertEqualsWithAccuracy([stat trimmedMeanByDiscarding:0.05], 14.0, 1e-6, nil);
-}
-
-- (void)testTrimmedMeanHighLow {
-    [stat addDataFromArray:[@"0 15 15 15 35" componentsSeparatedByString:@" "]];
-    STAssertEqualsWithAccuracy([stat trimmedMeanByDiscardingLow:0.0 high:0.4], 10.0, 1e-6, nil);
-    STAssertEqualsWithAccuracy([stat trimmedMeanByDiscardingLow:0.2 high:0.0], 20.0, 1e-6, nil);
-    STAssertEqualsWithAccuracy([stat trimmedMeanByDiscardingLow:0.2 high:0.2], 15.0, 1e-6, nil);
-}
-
 - (void)testHarmonicMean {
     [stat addDataFromArray:[@"8 9 10" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat harmonicMean], 8.926, 1e-3, nil);
@@ -135,6 +121,22 @@
 - (void)testGeometricMean {
     [stat addDataFromArray:[@"1 0.5 0.25" componentsSeparatedByString:@" "]];
     STAssertEqualsWithAccuracy([stat geometricMean], 0.5, 1e-6, nil);
+}
+
+#pragma mark Derived Statistics
+
+- (void)testTrimmedMean {
+    [stat addDataFromArray:[@"0 15 15 15 35" componentsSeparatedByString:@" "]];
+    SBFullStatistics *s;
+    
+    s = [stat statisticsDiscardingLow:0.0 high:0.4];
+    STAssertEqualsWithAccuracy([s mean], 10.0, 1e-6, nil);
+    
+    s = [stat statisticsDiscardingLow:0.2 high:0.0];
+    STAssertEqualsWithAccuracy([s mean], 20.0, 1e-6, nil);
+    
+    s = [stat statisticsDiscardingLow:0.2 high:0.2];
+    STAssertEqualsWithAccuracy([s mean], 15.0, 1e-6, nil);
 }
 
 @end

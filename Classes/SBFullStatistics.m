@@ -12,6 +12,8 @@
 
 @implementation SBFullStatistics
 
+#pragma mark Creation and deletion
+
 - (id)init
 {
     if (self = [super init]) {
@@ -25,6 +27,13 @@
     [data release];
     [sortedData release];
     [super dealloc];
+}
+
+- (id)statisticsDiscardingLow:(double)l high:(double)h
+{
+    id copy = [[self class] new];
+    [copy addDataFromArray:[self sortedDataDiscardingLow:l high:h]];
+    return [copy autorelease];
 }
 
 #pragma mark Adding data
@@ -144,21 +153,6 @@
     }
 
     return freq;
-}
-
-- (double)trimmedMeanByDiscarding:(double)x
-{
-    NSAssert1(x > 0 && x < 1.0, @"Bound must be 0 < x < 1, was %u", x);
-    return [self trimmedMeanByDiscardingLow:x high:x];
-}
-
-- (double)trimmedMeanByDiscardingLow:(double)l high:(double)h
-{
-    double trimmedMean = 0.0;
-    NSUInteger i = 0;
-    for (NSNumber *n in [self sortedDataDiscardingLow:l high:h])
-        trimmedMean += ([n doubleValue] - trimmedMean) / ++i;
-    return trimmedMean;
 }
 
 - (double)harmonicMean
