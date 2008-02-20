@@ -53,6 +53,28 @@
      STAssertEqualsWithAccuracy([stat median], 2.0, 1e-6, nil);
 }
 
+- (void)testPercentile {
+    [stat addDataFromArray:[@"6 7 8 16 0 1 2 3 4 5" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat percentile:0.0], stat.min, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat percentile:1.0], stat.max, 1e-6, nil);
+
+    STAssertEqualsWithAccuracy([stat percentile:0.05], stat.min, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat percentile:0.25], 2.0, 1e-6, nil);
+
+    STAssertEqualsWithAccuracy([stat percentile:0.95], 8.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat percentile:0.975], 8.0, 1e-6, nil);
+}
+
+- (void)testHarmonicMean {
+    [stat addDataFromArray:[@"8 9 10" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat harmonicMean], 8.926, 1e-3, nil);
+}
+
+- (void)testGeometricMean {
+    [stat addDataFromArray:[@"1 0.5 0.25" componentsSeparatedByString:@" "]];
+    STAssertEqualsWithAccuracy([stat geometricMean], 0.5, 1e-6, nil);
+}
+
 - (void)testFrequencyDistributionBuckets {
     [stat addDataFromArray:[@"9 3.3 1 5 2" componentsSeparatedByString:@" "]];
     id expect = [NSArray arrayWithObjects:num(9), num(5), nil];
@@ -93,7 +115,6 @@
                   nil];
     STAssertEqualObjects([stat frequencyDistributionWithBuckets:[stat bucketsWithCount:4] cumulative:NO], expect3, nil);
 }
-
 
 - (void)testFrequencyDistributionCumulative {
     [stat addDataFromArray:[@"9 3.3 1 5 2" componentsSeparatedByString:@" "]];
@@ -143,16 +164,6 @@
     NSArray *sub = [stat sortedDataDiscardingLow:0.3 high:0.4];
     STAssertEquals([[sub objectAtIndex:0] intValue], (int)3, nil);
     STAssertEquals([[sub lastObject] intValue], (int)5, nil);
-}
-
-- (void)testHarmonicMean {
-    [stat addDataFromArray:[@"8 9 10" componentsSeparatedByString:@" "]];
-    STAssertEqualsWithAccuracy([stat harmonicMean], 8.926, 1e-3, nil);
-}
-
-- (void)testGeometricMean {
-    [stat addDataFromArray:[@"1 0.5 0.25" componentsSeparatedByString:@" "]];
-    STAssertEqualsWithAccuracy([stat geometricMean], 0.5, 1e-6, nil);
 }
 
 #pragma mark Derived Statistics

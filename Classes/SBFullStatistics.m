@@ -104,6 +104,37 @@
     return ([[sorted objectAtIndex:count / 2 - 1] doubleValue] + [[sorted objectAtIndex:count / 2] doubleValue]) / 2;
 }
 
+- (double)percentile:(double)x
+{
+    NSAssert1(x >= 0 && x <= 1, @"Percentile must be 0 <= x <= 1, but was %f", x);
+    NSUInteger i = (count-1) * x;
+    return [[[self sortedData] objectAtIndex:i] doubleValue];
+}
+
+- (double)harmonicMean
+{
+    long double sum = 0.0;
+    for (NSNumber *n in data) {
+        double d = [n doubleValue];
+        if (d == 0)
+            return nan(0);
+        sum += 1 / d;
+    }
+    return count / sum;
+}
+
+- (double)geometricMean
+{
+    long double sum = 1;
+    for (NSNumber *n in data) {
+        double d = [n doubleValue];
+        if (d < 0)
+            return nan(0);
+        sum *= d;
+    }
+    return count ? pow(sum, 1.0 / count) : nan(0);
+}
+
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x cumulative:(BOOL)cumulative
 {
     NSAssert([x count], @"No buckets given");
@@ -146,30 +177,6 @@
     }
     
     return freq;
-}
-
-- (double)harmonicMean
-{
-    long double sum = 0.0;
-    for (NSNumber *n in data) {
-        double d = [n doubleValue];
-        if (d == 0)
-            return nan(0);
-        sum += 1 / d;
-    }
-    return count / sum;
-}
-
-- (double)geometricMean
-{
-    long double sum = 1;
-    for (NSNumber *n in data) {
-        double d = [n doubleValue];
-        if (d < 0)
-            return nan(0);
-        sum *= d;
-    }
-    return count ? pow(sum, 1.0 / count) : nan(0);
 }
 
 #pragma mark Buckets

@@ -65,6 +65,9 @@
 // http://en.wikipedia.org/wiki/Median
 - (double)median;
 
+// http://en.wikipedia.org/wiki/Percentile
+- (double)percentile:(double)x;
+
 // http://en.wikipedia.org/wiki/Harmonic_mean
 - (double)harmonicMean;
 
