@@ -85,4 +85,7 @@
 // Returns the data in sorted order
 - (NSArray*)sortedData;
 
+// Returns the data sans low and high outliers
+- (NSArray*)sortedDataDiscardingLow:(double)x high:(double)y;
+
 @end

@@ -101,6 +101,18 @@
     STAssertTrue(-[start timeIntervalSinceNow] < 3.0, @"Should be quick");
 }
 
+- (void)testSortedDataDiscarding {
+    [stat addDataFromArray:[@"6 7 8 9 0 1 2 3 4 5" componentsSeparatedByString:@" "]];
+
+    STAssertEquals([[stat sortedDataDiscardingLow:0.05 high:0.05] count], (NSUInteger)10, nil);
+    STAssertEquals([[stat sortedDataDiscardingLow:0.1 high:0.1] count], (NSUInteger)8, nil);
+    STAssertEquals([[stat sortedDataDiscardingLow:0.2 high:0.2] count], (NSUInteger)6, nil);
+
+    NSArray *sub = [stat sortedDataDiscardingLow:0.3 high:0.4];
+    STAssertEquals([[sub objectAtIndex:0] intValue], (int)3, nil);
+    STAssertEquals([[sub lastObject] intValue], (int)5, nil);
+}
+
 - (void)testTrimmedMean {
     [stat addDataFromArray:[@"4 108 4 4 4 4 4 4 0 4" componentsSeparatedByString:@" "]];
     STAssertEquals(stat.count, (NSUInteger)10, nil);
@@ -110,7 +122,7 @@
 
 - (void)testTrimmedMeanHighLow {
     [stat addDataFromArray:[@"0 15 15 15 35" componentsSeparatedByString:@" "]];
-    STAssertEqualsWithAccuracy([stat trimmedMeanByDiscardingLow:0.0 high:0.2], 10.0, 1e-6, nil);
+    STAssertEqualsWithAccuracy([stat trimmedMeanByDiscardingLow:0.0 high:0.4], 10.0, 1e-6, nil);
     STAssertEqualsWithAccuracy([stat trimmedMeanByDiscardingLow:0.2 high:0.0], 20.0, 1e-6, nil);
     STAssertEqualsWithAccuracy([stat trimmedMeanByDiscardingLow:0.2 high:0.2], 15.0, 1e-6, nil);
 }

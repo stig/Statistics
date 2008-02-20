@@ -56,6 +56,18 @@
     return sortedData = [[data sortedArrayUsingSelector:@selector(compare:)] retain];
 }
 
+- (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h
+{
+    NSAssert1(l >= 0 && l < 1.0, @"Low bound must be 0 <= x < 1, was %f", l);
+    NSAssert1(h >= 0 && h < 1.0, @"High bound must be 0 <= x < 1, was %f", h);
+    
+    NSUInteger lo = l * count;
+    NSUInteger hi = ceil(count - h * count);
+    NSRange r = NSMakeRange(lo, hi - lo);
+
+    return [[self sortedData] subarrayWithRange:r];
+}
+
 #pragma mark Statistics
 
 - (double)mode
@@ -142,19 +154,9 @@
 
 - (double)trimmedMeanByDiscardingLow:(double)l high:(double)h
 {
-    NSAssert1(h >= 0 && h <= 1.0, @"High bound must be 0 <= x <= 1, was %u", h);
-    NSAssert1(l >= 0 && l <= 1.0, @"Low bound must be 0 <= x <= 1, was %u", l);
-
-    NSUInteger hibound = h * count;
-    NSUInteger lobound = l * count;
-    if (!hibound && !lobound)
-        return self.mean;
-    
-    id trimmed = [[self sortedData] subarrayWithRange:NSMakeRange(lobound, count-hibound-1)];
-    
     double trimmedMean = 0.0;
     NSUInteger i = 0;
-    for (NSNumber *n in trimmed)
+    for (NSNumber *n in [self sortedDataDiscardingLow:l high:h])
         trimmedMean += ([n doubleValue] - trimmedMean) / ++i;
     return trimmedMean;
 }
