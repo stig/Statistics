@@ -20,9 +20,10 @@ SRC     = $(shell find . -type f -name '*.[hm]')
 
 site: _site
 
-_site: $(DOCS)
+_site: $(DOCS) $(SRC) Doxyfile
 	-rm -rf _site
 	cp -r Documentation _site
+	doxygen
 	find _site -type d -name '.svn' | xargs rm -rf
 	perl -pi -e 's{__DMGURL__}{$(DMGURL)}g' _site/*.*
 	perl -pi -e 's{__VERSION__}{$(VERS)}g' _site/*.*

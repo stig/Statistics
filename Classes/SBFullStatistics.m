@@ -9,7 +9,10 @@
 #import "SBStatistics.h"
 #import "SBMutableDictionary.h"
 
-
+/// Instances of this class keeps a copy of each data point and is
+/// thereby able to produce sophisticated statistics. It can
+/// (eventually) take up very much memory if you collect a lot of data.
+/// @see SBStatistics
 @implementation SBFullStatistics
 
 #pragma mark Creation and deletion
@@ -29,6 +32,11 @@
     [super dealloc];
 }
 
+/// This can be used to calculate the truncated (trimmed) mean,
+/// or any other trimmed value you might care to know.
+/// @see http://en.wikipedia.org/wiki/Truncated_mean
+/// @param l should be a real number such that 0 <= l < 1.
+/// @param h should be a real number such that 0 <= h < 1.
 - (id)statisticsDiscardingLow:(double)l high:(double)h
 {
     id copy = [[self class] new];
@@ -38,6 +46,8 @@
 
 #pragma mark Adding data
 
+/// Overrides the superclass' method to store each data point.
+/// Also invalidates the cached sorted data, if any.
 - (void)addData:(id)x
 {
     if (![x isKindOfClass:[NSNumber class]])
@@ -52,11 +62,14 @@
 
 #pragma mark Returning data
 
+/// Returns an autoreleased copy of the data array.
 - (NSArray*)data
 {
     return [[data copy] autorelease];
 }
 
+/// This is used by several other methods. The result is cached until
+/// the next time addData: is called.
 - (NSArray*)sortedData
 {
     // Do we have cached sorted data? use it
@@ -65,6 +78,8 @@
     return sortedData = [[data sortedArrayUsingSelector:@selector(compare:)] retain];
 }
 
+/// @param l should be a real number such that 0 <= l < 1.
+/// @param h should be a real number such that 0 <= h < 1.
 - (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h
 {
     NSAssert1(l >= 0 && l < 1.0, @"Low bound must be 0 <= x < 1, was %f", l);
@@ -79,6 +94,7 @@
 
 #pragma mark Statistics
 
+/// @see http://en.wikipedia.org/wiki/Mode_(statistics)
 - (double)mode
 {
     id freq = [NSMutableDictionary dictionaryWithCapacity:count];
@@ -91,6 +107,7 @@
     return [[[freq keysSortedByValueUsingSelector:@selector(compare:)] lastObject] doubleValue];
 }
 
+/// @see http://en.wikipedia.org/wiki/Median
 - (double)median
 {
     if (!count)
@@ -103,7 +120,8 @@
         return [[sorted objectAtIndex:count / 2 - 1] doubleValue];    
     return ([[sorted objectAtIndex:count / 2 - 1] doubleValue] + [[sorted objectAtIndex:count / 2] doubleValue]) / 2;
 }
-
+/// @param x should be a real number such that 0 <= x <= 1.
+/// @see http://en.wikipedia.org/wiki/Percentile
 - (double)percentile:(double)x
 {
     NSAssert1(x >= 0 && x <= 1, @"Percentile must be 0 <= x <= 1, but was %f", x);
@@ -111,6 +129,7 @@
     return [[[self sortedData] objectAtIndex:i] doubleValue];
 }
 
+/// @see http://en.wikipedia.org/wiki/Harmonic_mean
 - (double)harmonicMean
 {
     long double sum = 0.0;
@@ -123,6 +142,7 @@
     return count / sum;
 }
 
+/// @see http://en.wikipedia.org/wiki/Geometric_mean
 - (double)geometricMean
 {
     long double sum = 1;
@@ -135,6 +155,9 @@
     return count ? pow(sum, 1.0 / count) : nan(0);
 }
 
+/// @see http://en.wikipedia.org/wiki/Frequency_distribution
+/// @see bucketsWithCount:
+/// @see bucketsWithInterval:
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x cumulative:(BOOL)cumulative
 {
     NSAssert([x count], @"No buckets given");
@@ -181,11 +204,13 @@
 
 #pragma mark Buckets
 
+/// The highest bucket will be equal to max of the population
 - (NSArray*)bucketsWithCount:(NSUInteger)x
 {
     return [self bucketsWithInterval:self.range / x];
 }
 
+/// The highest bucket will be equal to max of the population
 - (NSArray*)bucketsWithInterval:(double)interval
 {
     if (interval > 0) {

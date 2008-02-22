@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+/// Sparse statistics
 @interface SBStatistics : NSObject {
     NSUInteger count;
     NSUInteger mindex;
@@ -17,82 +17,90 @@
     double min;
     double max;
     double mean;
+
+@private
     double pseudoVariance;
 }
 
-// Adds a data point. x must respond to -doubleValue.
+/// Add a data point.
 - (void)addData:(id)x;
 
-// Adds data points from the given array. Calls -addData: repeatedly.
+/// Add data points from the given array.
 - (void)addDataFromArray:(NSArray*)x;
 
-// Count of data points
+/// Count of data points
 @property(readonly) NSUInteger count;
 
-// Index of smallest and largest data points
+/// Index of smallest data point
 @property(readonly) NSUInteger mindex;
+
+/// Index of largest data point
 @property(readonly) NSUInteger maxdex;
 
-// Value of smallest and largest data points
+/// Value of smallest data point
 @property(readonly) double min;
+
+/// Value of largest data point
 @property(readonly) double max;
 
-// http://en.wikipedia.org/wiki/Arithmetic_mean
+/// The arithmetic mean. @see http://en.wikipedia.org/wiki/Arithmetic_mean
 @property(readonly) double mean;
 
-// http://en.wikipedia.org/wiki/Range_(statistics)
+/// Max - min
 - (double)range;
 
-// http://en.wikipedia.org/wiki/Variance
-- (double)variance;                 // division by N-1
-- (double)biasedVariance;           // division by N
+/// Variance of sample (division by N-1)
+- (double)variance;
 
-// http://en.wikipedia.org/wiki/Standard_deviation
-- (double)standardDeviation;        // division by N-1
-- (double)biasedStandardDeviation;  // division by N
+/// Variance of population (division by N)
+- (double)biasedVariance;
+
+/// Standard deviation of sample (division by N-1)
+- (double)standardDeviation;
+
+/// Standard deviation of population (division by N)
+- (double)biasedStandardDeviation;
 
 @end
 
-@interface SBFullStatistics : SBStatistics
-{
+/// Full statistics class.
+@interface SBFullStatistics : SBStatistics {
     NSMutableArray *data;
     NSArray *sortedData;
 }
 
-// http://en.wikipedia.org/wiki/Mode_(statistics)
+/// Most frequently occuring data point
 - (double)mode;
 
-// http://en.wikipedia.org/wiki/Median
+/// Middle value in a list of sorted data points
 - (double)median;
 
-// http://en.wikipedia.org/wiki/Percentile
+/// Find the largest data point less than a certain percentage
 - (double)percentile:(double)x;
 
-// http://en.wikipedia.org/wiki/Harmonic_mean
 - (double)harmonicMean;
 
-// http://en.wikipedia.org/wiki/Geometric_mean
 - (double)geometricMean;
 
-// http://en.wikipedia.org/wiki/Frequency_distribution
+/// Returns an (optionally cumulative) frequency distribution.
 - (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x cumulative:(BOOL)y;
 
-// Conveniently create buckets for frequency distribution calculations.
+/// Returns x equally-sized buckets covering the range of data.
 - (NSArray*)bucketsWithCount:(NSUInteger)x;
+
+/// Returns N buckets of size x covering the range of data.
 - (NSArray*)bucketsWithInterval:(double)x;
 
-// Returns the data in the order it was added
+/// Returns the data in the order it was added.
 - (NSArray*)data;
 
-// Returns the data in sorted order
+/// Returns the data in sorted order.
 - (NSArray*)sortedData;
 
-// Returns the data sans low and high outliers
+/// Returns the data sans low and high outliers.
 - (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h;
 
-// Return a new statistics object, with outliers removed from the data.
-// This can be used to calculate the truncated (trimmed) mean.
-// http://en.wikipedia.org/wiki/Truncated_mean
+/// Returns a new statistics object, with outliers removed from the data.
 - (id)statisticsDiscardingLow:(double)l high:(double)h;
 
 @end
