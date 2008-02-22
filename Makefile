@@ -15,16 +15,14 @@ LIB     = $(OBJPATH)/$(PROJ)
 
 FWKPATH = /tmp/Frameworks/$(PROJ).framework
 
-DOCS    = $(shell find . -type f \( -name '*.html' -o -name '*.css' \))
+DOCS    = $(shell find . -type f -name '*.doxygen')
 SRC     = $(shell find . -type f -name '*.[hm]')
 
 site: _site
 
-_site: $(DOCS) $(SRC) Doxyfile
+_site: $(DOCS) $(SRC) Documentation/Doxyfile
 	-rm -rf _site
-	cp -r Documentation _site
-	doxygen
-	find _site -type d -name '.svn' | xargs rm -rf
+	doxygen Documentation/Doxyfile
 	perl -pi -e 's{__DMGURL__}{$(DMGURL)}g' _site/*.*
 	perl -pi -e 's{__VERSION__}{$(VERS)}g' _site/*.*
 

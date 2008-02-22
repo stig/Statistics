@@ -1,0 +1,98 @@
+/** @mainpage Objective-C Statistics Framework
+
+Statistics is a Foundation framework for calculating&mdash;no points
+for guessing it&mdash;statistics. It is inspired by Perl's <a
+href="http://search.cpan.org/dist/Statistics-Descriptive/">
+Statistics::Descriptive</a> and like it consists of two main classes.
+
+SBStatistics calculates a range of statistical measurements on the fly
+as each data point is added. The data is then immediately discarded,
+giving it a very low memory footprint.
+
+SBFullStatistics in turn subclasses SBStatistics and records each data
+point. It is therefore able to provide more advanced statistical
+functions. The trade-off is that it can consume a lot of memory if you
+are collecting a lot of data.
+
+The following example assumes you have included the @p
+Statistics/Statistics.h header and somehow linked to the Statistics
+framework:
+
+@code
+// Create statistics object
+SBStatistics *stat = [SBStatistics new];
+
+// Add some random data points
+for (int i = 0; i < 1000; i++)
+    [stat addData:[NSNumber numberWithInt:random()/1000.0]];
+
+// Format report
+id fmt = [NSMutableArray array];
+[fmt addObject:@"Data set consists of %u data points."];
+[fmt addObject:@" * Min:      %f"];
+[fmt addObject:@" * Max:      %f"];
+[fmt addObject:@" * Mean:     %f"];
+[fmt addObject:@" * Variance: %f"];
+[fmt addObject:@" * StdDev:   %f"];
+
+// Print it
+NSLog([fmt componentsJoinedByString:@"\n"],
+    stat.count,
+    stat.min,
+    stat.max,
+    stat.mean,
+    [stat variance],
+    [stat standardDeviation]
+);
+@endcode
+
+The SBFullStatistics class can do other interesting stuff:
+
+@code
+// Create statistics object
+SBFullStatistics *stat = [SBFullStatistics new];
+
+// Add some random data.
+for (int i = 0; i < 1e4; i++)
+    [stat addData:[NSNumber numberWithDouble:random()]];
+
+// Produce 10 equally-sized buckets covering the entire range
+id buckets = [stat bucketsWithCount:10];
+
+// Calculate frequency distributions.
+id freq = [stat frequencyDistributionWithBuckets:buckets
+                                      cumulative:NO];
+id cfreq = [stat frequencyDistributionWithBuckets:buckets
+                                       cumulative:YES];
+
+// Iterate over the buckets and output the values
+for (id bucket in buckets)
+    NSLog(@"%@ => %@ => %@",
+        bucket,
+        [freq objectForKey:bucket],
+        [cfreq objectForKey:bucket]);
+@endcode
+
+
+@section sec_download Download
+
+This project is still very young, and newer versions will be announced
+on my <a href="http://skuggdev.wordpress.com">Cocoa blog</a>.
+Nevertheless, it's fairly well tested and unlikely to have serious
+bugs.
+
+You can download a dmg containing an <a href="__DMGURL__">embedded
+framework</a> of the latest version (Leopard only). Alternatively you
+can get the <a
+href="http://svn.brautaset.org/Statistics/trunk/">Statistics
+source</a> from my Subversion server.
+
+@section sec_author Author
+
+This code is released under the revised BSD license and is a work by
+<a href="mailto:stig@brautaset.org">Stig Brautaset</a>.
+
+<a href="http://code.brautaset.org/">http://code.brautaset.org</a>
+has more code by me.
+
+*/
