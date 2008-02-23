@@ -79,7 +79,8 @@
 }
 
 /// The parameters l=0.05 and h=0.1 means discarding the lower 5% and
-/// upper 10% of the data.
+/// upper 10% of the data. An exception is thrown if the parameters
+/// are not in the expected range.
 /// @param l should be a real number such that 0 <= l < 1.
 /// @param h should be a real number such that 0 <= h < 1.
 - (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h
