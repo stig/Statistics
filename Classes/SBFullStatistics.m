@@ -58,10 +58,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /// @see http://en.wikipedia.org/wiki/Truncated_mean
 /// @param l should be a real number such that 0 <= l < 1.
 /// @param h should be a real number such that 0 <= h < 1.
-- (id)statisticsDiscardingLow:(double)l high:(double)h
+- (id)statisticsDiscardingLowOutliers:(double)l high:(double)h
 {
     id copy = [[self class] new];
-    [copy addDataFromArray:[self sortedDataDiscardingLow:l high:h]];
+    [copy addDataFromArray:[self sortedDataDiscardingLowOutliers:l high:h]];
     return [copy autorelease];
 }
 
@@ -104,7 +104,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /// are not in the expected range.
 /// @param l should be a real number such that 0 <= l < 1.
 /// @param h should be a real number such that 0 <= h < 1.
-- (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h
+- (NSArray*)sortedDataDiscardingLowOutliers:(double)l high:(double)h
 {
     NSAssert1(l >= 0 && l < 1.0, @"Low bound must be 0 <= x < 1, was %f", l);
     NSAssert1(h >= 0 && h < 1.0, @"High bound must be 0 <= x < 1, was %f", h);

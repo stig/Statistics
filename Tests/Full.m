@@ -157,11 +157,11 @@
 - (void)testSortedDataDiscarding {
     [stat addDataFromArray:[@"6 7 8 9 0 1 2 3 4 5" componentsSeparatedByString:@" "]];
 
-    STAssertEquals([[stat sortedDataDiscardingLow:0.05 high:0.05] count], (NSUInteger)10, nil);
-    STAssertEquals([[stat sortedDataDiscardingLow:0.1 high:0.1] count], (NSUInteger)8, nil);
-    STAssertEquals([[stat sortedDataDiscardingLow:0.2 high:0.2] count], (NSUInteger)6, nil);
+    STAssertEquals([[stat sortedDataDiscardingLowOutliers:0.05 high:0.05] count], (NSUInteger)10, nil);
+    STAssertEquals([[stat sortedDataDiscardingLowOutliers:0.1 high:0.1] count], (NSUInteger)8, nil);
+    STAssertEquals([[stat sortedDataDiscardingLowOutliers:0.2 high:0.2] count], (NSUInteger)6, nil);
 
-    NSArray *sub = [stat sortedDataDiscardingLow:0.3 high:0.4];
+    NSArray *sub = [stat sortedDataDiscardingLowOutliers:0.3 high:0.4];
     STAssertEquals([[sub objectAtIndex:0] intValue], (int)3, nil);
     STAssertEquals([[sub lastObject] intValue], (int)5, nil);
 }
@@ -172,13 +172,13 @@
     [stat addDataFromArray:[@"0 15 15 15 35" componentsSeparatedByString:@" "]];
     SBFullStatistics *s;
     
-    s = [stat statisticsDiscardingLow:0.0 high:0.4];
+    s = [stat statisticsDiscardingLowOutliers:0.0 high:0.4];
     STAssertEqualsWithAccuracy([s mean], 10.0, 1e-6, nil);
     
-    s = [stat statisticsDiscardingLow:0.2 high:0.0];
+    s = [stat statisticsDiscardingLowOutliers:0.2 high:0.0];
     STAssertEqualsWithAccuracy([s mean], 20.0, 1e-6, nil);
     
-    s = [stat statisticsDiscardingLow:0.2 high:0.2];
+    s = [stat statisticsDiscardingLowOutliers:0.2 high:0.2];
     STAssertEqualsWithAccuracy([s mean], 15.0, 1e-6, nil);
 }
 

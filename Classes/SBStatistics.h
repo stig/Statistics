@@ -98,9 +98,9 @@
 - (NSArray*)sortedData;
 
 /// Returns the data sans low and high outliers.
-- (NSArray*)sortedDataDiscardingLow:(double)l high:(double)h;
+- (NSArray*)sortedDataDiscardingLowOutliers:(double)l high:(double)h;
 
 /// Returns a new statistics object, with outliers removed from the data.
-- (id)statisticsDiscardingLow:(double)l high:(double)h;
+- (id)statisticsDiscardingLowOutliers:(double)l high:(double)h;
 
 @end
