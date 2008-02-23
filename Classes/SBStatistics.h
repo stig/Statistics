@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-/// Sparse statistics
+/// Sparse statistics class
 @interface SBStatistics : NSObject {
     NSUInteger count;
     NSUInteger mindex;
