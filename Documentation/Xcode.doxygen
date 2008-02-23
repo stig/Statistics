@@ -1,0 +1,13 @@
+/** @page xcode Xcode Integrated documentation
+
+Statistics' documentation can be integrated into Xcode 3. To do this,
+open Terminal.app and cd into the Documentation directory in the
+Statistics___VERSION__ bundle. You can then simply type "make install"
+to install the docset into
+~/Library/Developer/Shared/Documentation/DocSets so that Xcode will
+find it at startup.
+
+The integrated documentation can be removed by running "make
+uninstall" from the same directory.
+
+*/

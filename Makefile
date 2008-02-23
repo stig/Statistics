@@ -15,12 +15,12 @@ LIB     = $(OBJPATH)/$(PROJ)
 
 FWKPATH = /tmp/Frameworks/$(PROJ).framework
 
-DOCS    = $(shell find . -type f -name '*.doxygen')
-SRC     = $(shell find . -type f -name '*.[hm]')
+DOCS    = $(shell find Documentation -type f)
+SRC     = $(shell find Classes -type f)
 
 site: _site
 
-_site: $(DOCS) $(SRC) Documentation/Doxyfile
+_site: $(DOCS) $(SRC)
 	-rm -rf _site
 	doxygen Documentation/Doxyfile
 	find _site -type f | xargs perl -pi -e 's{__DMGURL__}{$(DMGURL)}g'
@@ -41,6 +41,7 @@ $(DMG): $(SRC) _site
 	mkdir $(DIST)
 	cp -p -R $(FWKPATH) $(DIST)
 	cp -p -R _site $(DIST)/Documentation
+	cat Documentation/redirect.js > $(DIST)/Documentation.html
 	hdiutil create -fs HFS+ -volname $(DIST) -srcfolder $(DIST) $(DMG)
 
 upload-dmg: $(DMG)

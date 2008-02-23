@@ -79,7 +79,11 @@ for (id bucket in buckets)
 @section sec_download Download
 
 Download the <a href="__DMGURL__">Statistics __VERSION__</a> embedded
-framework dmg (Leopard only, sorry). Alternatively you can get the <a
+framework dmg (Leopard only, sorry). This bundle also contains the
+documentation found on this website, and the means to @ref xcode
+"integrate this documentation into Xcode".
+
+Alternatively you can get the <a
 href="http://svn.brautaset.org/Statistics/tags/__VERSION__/">
 source</a> from my Subversion server and build it yourself.
 
