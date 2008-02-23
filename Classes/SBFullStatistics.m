@@ -94,6 +94,9 @@
 
 #pragma mark Statistics
 
+/// Returns the most frequently occuring data point, or nan if all the
+/// data points are unique. If there are multiple candidates it is
+/// undefined which one is returned.
 /// @see http://en.wikipedia.org/wiki/Mode_(statistics)
 - (double)mode
 {
@@ -120,6 +123,7 @@
         return [[sorted objectAtIndex:count / 2 - 1] doubleValue];    
     return ([[sorted objectAtIndex:count / 2 - 1] doubleValue] + [[sorted objectAtIndex:count / 2] doubleValue]) / 2;
 }
+
 /// @param x should be a real number such that 0 <= x <= 1.
 /// @see http://en.wikipedia.org/wiki/Percentile
 - (double)percentile:(double)x
@@ -129,6 +133,8 @@
     return [[[self sortedData] objectAtIndex:i] doubleValue];
 }
 
+/// The harmonic mean is undefined if any of the data points are zero,
+/// and this method will return nan in that case.
 /// @see http://en.wikipedia.org/wiki/Harmonic_mean
 - (double)harmonicMean
 {
@@ -142,6 +148,9 @@
     return count / sum;
 }
 
+/// The geometric mean is undefined if any data point is less than
+/// zero, and this method returns nan in that case. Also returns nan()
+/// if called before any data has been added.
 /// @see http://en.wikipedia.org/wiki/Geometric_mean
 - (double)geometricMean
 {
@@ -155,6 +164,8 @@
     return count ? pow(sum, 1.0 / count) : nan(0);
 }
 
+/// @param buckets An array of buckets to partition the data into
+/// @param cumulative Whether to return the cumulative frequency distribution
 /// @see http://en.wikipedia.org/wiki/Frequency_distribution
 /// @see bucketsWithCount:
 /// @see bucketsWithInterval:

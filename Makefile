@@ -23,8 +23,8 @@ site: _site
 _site: $(DOCS) $(SRC) Documentation/Doxyfile
 	-rm -rf _site
 	doxygen Documentation/Doxyfile
-	perl -pi -e 's{__DMGURL__}{$(DMGURL)}g' _site/*.*
-	perl -pi -e 's{__VERSION__}{$(VERS)}g' _site/*.*
+	find _site -type f | xargs perl -pi -e 's{__DMGURL__}{$(DMGURL)}g'
+	find _site -type f | xargs perl -pi -e 's{__VERSION__}{$(VERS)}g'
 
 upload-site: _site
 	curl --head $(DMGURL) 2>/dev/null | grep -q "200 OK" 
