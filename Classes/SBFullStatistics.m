@@ -246,13 +246,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #pragma mark Buckets
 
-/// The highest bucket will be equal to max of the population
+/// Returns @p x buckets of even size that cover the entire range. The
+/// highest bucket will be equal to the max of the population.
+/// @see frequencyDistributionWithBuckets:cumulative:
 - (NSArray*)bucketsWithCount:(NSUInteger)x
 {
     return [self bucketsWithInterval:self.range / x];
 }
 
-/// The highest bucket will be equal to max of the population
+/// Returns a number of even-sized buckets, each with a range of @p x,
+/// that cover the entire range. The highest bucket will be equal to
+/// the max of the population.
+/// @see frequencyDistributionWithBuckets:cumulative:
 - (NSArray*)bucketsWithInterval:(double)interval
 {
     if (interval > 0) {
