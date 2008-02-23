@@ -6,5 +6,4 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <Statistics/SBStatistics.h>
