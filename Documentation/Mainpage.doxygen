@@ -78,9 +78,8 @@ for (id bucket in buckets)
 
 @section sec_download Download
 
-You can download a dmg containing an embedded build of <a
-href="__DMGURL__">Statistics __VERSION__</a> (for Leopard only).
-Alternatively you can get the <a
+Download the <a href="__DMGURL__">Statistics __VERSION__</a> embedded
+framework dmg (Leopard only, sorry). Alternatively you can get the <a
 href="http://svn.brautaset.org/Statistics/tags/__VERSION__/">
 source</a> from my Subversion server and build it yourself.
 
