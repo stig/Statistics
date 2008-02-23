@@ -77,7 +77,7 @@ for (id bucket in buckets)
 @section sec_download Download
 
 This project is still very young, and newer versions will be announced
-on my <a href="http://skuggdev.wordpress.com">Cocoa blog</a>.
+on my <a href="http://skuggdev.wordpress.com">Foundation blog</a>.
 Nevertheless, it's fairly well tested and unlikely to have serious
 bugs.
 

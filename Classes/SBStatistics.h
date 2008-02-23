@@ -6,7 +6,7 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 /// Sparse statistics
 @interface SBStatistics : NSObject {
