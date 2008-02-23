@@ -189,18 +189,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return count ? pow(sum, 1.0 / count) : nan(0);
 }
 
-/// @param buckets An array of buckets to partition the data into
+/// Returns a dictionary of frequency distributions for the given
+/// buckets. The returned dictionary has a key for each of the values
+/// in @p theBuckets. The associated value is the count of data points
+/// that are less than or equal to the key, but greater than any
+/// smaller buckets if @p cumulative is false, or simply less than or
+/// equal to the key otherwise.
+/// @param theBuckets An array of buckets to partition the data into
 /// @param cumulative Whether to return the cumulative frequency distribution
 /// @see http://en.wikipedia.org/wiki/Frequency_distribution
 /// @see bucketsWithCount:
 /// @see bucketsWithInterval:
-- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)x cumulative:(BOOL)cumulative
+- (NSDictionary*)frequencyDistributionWithBuckets:(NSArray*)theBuckets cumulative:(BOOL)cumulative
 {
-    NSAssert([x count], @"No buckets given");
+    NSAssert([theBuckets count], @"No buckets given");
 
     // Buckets must be NSNumbers
-    id buckets = [NSMutableArray arrayWithCapacity:[x count]];
-    for (id b in x)
+    id buckets = [NSMutableArray arrayWithCapacity:[theBuckets count]];
+    for (id b in theBuckets)
         [buckets addObject:[NSNumber numberWithDouble:[b doubleValue]]];
     
     // Create dictionary to hold frequency distribution and initialise each bucket
