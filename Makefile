@@ -24,6 +24,7 @@ _site: $(DOCS) $(SRC)
 	-rm -rf _site
 	doxygen Documentation/Doxyfile
 	find _site -type f | xargs perl -pi -e 's{__DMGURL__}{$(DMGURL)}g'
+	find _site -type f | xargs perl -pi -e 's{__PROJ__}{$(PROJ)}g'
 	find _site -type f | xargs perl -pi -e 's{__VERSION__}{$(VERS)}g'
 
 upload-site: _site
