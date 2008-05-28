@@ -119,5 +119,8 @@
     STAssertTrue(isnan([stat geometricMean]), nil);
 }
 
+- (void)testBuckets {
+    STAssertNil([stat bucketsWithCount:1], nil);
+}
 
 @end
