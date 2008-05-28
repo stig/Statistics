@@ -260,7 +260,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /// @see frequencyDistributionWithBuckets:cumulative:
 - (NSArray*)bucketsWithInterval:(double)interval
 {
-    if (interval <= 0 || isnan(self.max) || isnan(self.min))
+    if (!count || interval <= 0)
         return nil;
     
     id buckets = [NSMutableArray arrayWithObject:[NSNumber numberWithDouble:self.max]];
