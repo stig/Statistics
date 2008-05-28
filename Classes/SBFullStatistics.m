@@ -95,8 +95,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {
     // Do we have cached sorted data? use it
     if (sortedData)
-        return [[sortedData retain] autorelease];
-    return sortedData = [[data sortedArrayUsingSelector:@selector(compare:)] retain];
+        return [[sortedData copy] autorelease];
+
+    // Create a cached sorted data array
+    sortedData = [[data sortedArrayUsingFunction:doubleSort context:nil] retain];
+    return [self sortedData];
 }
 
 /// The parameters l=0.05 and h=0.1 means discarding the lower 5% and
