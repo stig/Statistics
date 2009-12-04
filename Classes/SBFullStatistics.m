@@ -98,7 +98,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return [[sortedData copy] autorelease];
 
     // Create a cached sorted data array
-    sortedData = [[data sortedArrayUsingFunction:doubleSort context:nil] retain];
+    sortedData = [[data sortedArrayUsingSelector:@selector(compare:)] retain];
     return [self sortedData];
 }
 
@@ -267,7 +267,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return nil;
     
     id buckets = [NSMutableArray arrayWithObject:[NSNumber numberWithDouble:self.max]];
-    for (double bucket = self.max - interval; bucket > self.min; bucket -= interval)
+    
+    double bucket;
+    for (bucket = self.max - interval; bucket > self.min; bucket -= interval)
         [buckets addObject:[NSNumber numberWithDouble:bucket]];
     return buckets;
 }
