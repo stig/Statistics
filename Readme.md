@@ -20,7 +20,7 @@ The following example assumes you have included the @p
 Statistics/Statistics.h header and somehow linked to the Statistics
 framework:
 
-```objc
+<pre>
 // Create statistics object
 SBStatistics *stat = [SBStatistics new];
 
@@ -46,11 +46,11 @@ NSLog([fmt componentsJoinedByString:@"\n"],
     [stat variance],
     [stat standardDeviation]
 );
-```
+</pre>
 
 The SBFullStatistics class can do other interesting stuff:
 
-```objc
+<pre>
 // Create statistics object
 SBFullStatistics *stat = [SBFullStatistics new];
 
@@ -73,7 +73,7 @@ for (id bucket in buckets)
         bucket,
         [freq objectForKey:bucket],
         [cfreq objectForKey:bucket]);
-```
+</pre>
 
 
 ## Download
