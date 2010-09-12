@@ -182,6 +182,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /// @see http://en.wikipedia.org/wiki/Geometric_mean
 - (double)geometricMean
 {
+    if (!count)
+        return nan(0);
+	
     long double sum = 1;
     for (NSNumber *n in data) {
         double d = [n doubleValue];
@@ -189,7 +192,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             return nan(0);
         sum *= d;
     }
-    return count ? pow(sum, 1.0 / count) : nan(0);
+    return pow(sum, 1.0 / count);
 }
 
 /// Returns a dictionary of frequency distributions for the given
