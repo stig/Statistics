@@ -1,4 +1,4 @@
-/** @mainpage Objective-C Statistics Framework
+# Statistics
 
 Statistics is a Foundation framework for calculating&mdash;no points
 for guessing it&mdash;statistics. It is inspired by Perl's <a
@@ -14,13 +14,13 @@ point. It is therefore able to provide more advanced statistical
 functions. The trade-off is that it can consume a lot of memory if you
 are collecting a lot of data.
 
-@section sec_examples Examples
+## Examples
 
 The following example assumes you have included the @p
 Statistics/Statistics.h header and somehow linked to the Statistics
 framework:
 
-@code
+```objc
 // Create statistics object
 SBStatistics *stat = [SBStatistics new];
 
@@ -46,11 +46,11 @@ NSLog([fmt componentsJoinedByString:@"\n"],
     [stat variance],
     [stat standardDeviation]
 );
-@endcode
+```
 
 The SBFullStatistics class can do other interesting stuff:
 
-@code
+```objc
 // Create statistics object
 SBFullStatistics *stat = [SBFullStatistics new];
 
@@ -73,28 +73,25 @@ for (id bucket in buckets)
         bucket,
         [freq objectForKey:bucket],
         [cfreq objectForKey:bucket]);
-@endcode
+```
 
 
-@section sec_download Download
+## Download
 
-Download the <a href="__DMGURL__">Statistics __VERSION__</a> embedded
-framework dmg (Leopard only, sorry). This bundle also contains the
-documentation found on this website, and the means to @ref xcode
-"integrate this documentation into Xcode".
+* [Master branch](http://github.com/stig/Statistics/zipball/master)
 
-Alternatively you can get the <a
-href="http://svn.brautaset.org/Statistics/tags/__VERSION__/">
-source</a> from my Subversion server and build it yourself.
+## License
 
-Newer versions will be announced on my <a
-href="http://skuggdev.wordpress.com">Cocoa blog</a>.
+>Copyright (c) 2008, Stig Brautaset. All rights reserved.
+>
+>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+> * Redistributions of source code must retain the above copyright notice,   this list of conditions and the following disclaimer.
+> * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+> * Neither the name of the author nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+> 
+> THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-@section sec_author Author
+## Author
 
-This code is a work by <a href="mailto:stig@brautaset.org">Stig
-Brautaset</a> and released under the revised BSD license.
+* [Stig Brautaset](stig@brautaset.org)
 
-http://code.brautaset.org has more code by me.
-
-*/
