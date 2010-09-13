@@ -28,8 +28,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "SBStatistics.h"
-#import "SBMutableDictionary.h"
-
 
 static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 {
