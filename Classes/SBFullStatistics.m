@@ -69,12 +69,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /// Overrides the superclass' method to store each data point.
 /// Also invalidates the cached sorted data, if any.
-- (void)addData:(id)x
+- (void)addDouble:(double)d
 {
-    if (![x isKindOfClass:[NSNumber class]])
-        x = [NSNumber numberWithDouble:[x doubleValue]];
-    [super addData:x];
-    [data addObject:x];
+    [super addDouble:d];
+    [data addObject:[NSNumber numberWithDouble:d]];
     
     // Invalidate cached data
     [sortedData release];

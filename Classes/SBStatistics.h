@@ -43,7 +43,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     double pseudoVariance;
 }
 
+
 /// Add a data point.
+- (void)addDouble:(double)d;
+
+/// Add a data point from an object.
 - (void)addData:(id)x;
 
 /// Add data points from the given array.

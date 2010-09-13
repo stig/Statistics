@@ -63,14 +63,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         [self addData:x];
 }
 
-/// This method does most of the work, including computing the stats.
+/// Add a datapoint (any NSObject responding  to -doubleValue)
 /// @param x must respond to -doubleValue.
 - (void)addData:(id)x
 {
     NSAssert([x respondsToSelector:@selector(doubleValue)], @"Data must respond to -doubleValue");
-    
-    double d = [x doubleValue];
+	[self addDouble:[x doubleValue]];
+}
 
+/// Add a datapoint.
+/// This method does most of the work.
+/// @param d a double-precision data point to add.
+- (void)addDouble:(double)d {
     if (!count) {
         min = INFINITY;
         max = -min;
