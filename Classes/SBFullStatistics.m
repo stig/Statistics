@@ -30,6 +30,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "SBStatistics.h"
 #import "SBMutableDictionary.h"
 
+
+static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
+{
+    id value = [dict objectForKey:key];
+    value = value	? [NSNumber numberWithInt:[value intValue] + 1]
+					: [NSNumber numberWithInt:1];
+	
+    [dict setObject:value forKey:key];
+}
+
+
 /// Instances of this class keeps a copy of each data point and is
 /// thereby able to produce sophisticated statistics. It can
 /// (eventually) take up very much memory if you collect a lot of data.
@@ -127,7 +138,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {
     id freq = [NSMutableDictionary dictionaryWithCapacity:count];
     for (NSNumber *x in data)
-        [freq incrementValueForNumber:x];
+		incrementValueForKey(freq, x);
 
     // No mode exists if all the numbers are unique
     if ([freq count] == count)
@@ -227,7 +238,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     for (NSNumber *n in [self sortedData]) {
     again:
         if ([n compare:b] <= 0) {
-            [freq incrementValueForNumber:b];
+			incrementValueForKey(freq, b);
         } else {
             b = [biter nextObject];
             if (b)
