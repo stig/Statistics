@@ -49,7 +49,8 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 
 - (id)init
 {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         data = [NSMutableArray new];
     }
     return self;

@@ -48,7 +48,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)init
 {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         min = max = mean = nan(0);
     }
     return self;
