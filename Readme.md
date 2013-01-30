@@ -20,60 +20,56 @@ The following example assumes you have included the @p
 Statistics/Statistics.h header and somehow linked to the Statistics
 framework:
 
-<pre>
-// Create statistics object
-SBStatistics *stat = [SBStatistics new];
+    // Create statistics object
+    SBStatistics *stat = [SBStatistics new];
+    
+    // Add some random data points
+    for (int i = 0; i < 1000; i++)
+        [stat addData:[NSNumber numberWithInt:random()/1000.0]];
 
-// Add some random data points
-for (int i = 0; i < 1000; i++)
-    [stat addData:[NSNumber numberWithInt:random()/1000.0]];
-
-// Format report
-id fmt = [NSMutableArray array];
-[fmt addObject:@"Data set consists of %u data points."];
-[fmt addObject:@" * Min:      %f"];
-[fmt addObject:@" * Max:      %f"];
-[fmt addObject:@" * Mean:     %f"];
-[fmt addObject:@" * Variance: %f"];
-[fmt addObject:@" * StdDev:   %f"];
-
-// Print it
-NSLog([fmt componentsJoinedByString:@"\n"],
-    stat.count,
-    stat.min,
-    stat.max,
-    stat.mean,
-    [stat variance],
-    [stat standardDeviation]
-);
-</pre>
+    // Format report
+    id fmt = [NSMutableArray array];
+    [fmt addObject:@"Data set consists of %u data points."];
+    [fmt addObject:@" * Min:      %f"];
+    [fmt addObject:@" * Max:      %f"];
+    [fmt addObject:@" * Mean:     %f"];
+    [fmt addObject:@" * Variance: %f"];
+    [fmt addObject:@" * StdDev:   %f"];
+    
+    // Print it
+    NSLog([fmt componentsJoinedByString:@"\n"],
+        stat.count,
+        stat.min,
+        stat.max,
+        stat.mean,
+        [stat variance],
+        [stat standardDeviation]
+    );
 
 The SBFullStatistics class can do other interesting stuff:
 
-<pre>
-// Create statistics object
-SBFullStatistics *stat = [SBFullStatistics new];
-
-// Add some random data.
-for (int i = 0; i < 1e4; i++)
-    [stat addData:[NSNumber numberWithDouble:random()]];
-
-// Produce 10 equally-sized buckets covering the entire range
-id buckets = [stat bucketsWithCount:10];
-
-// Calculate frequency distributions.
-id freq = [stat frequencyDistributionWithBuckets:buckets
-                                      cumulative:NO];
-id cfreq = [stat frequencyDistributionWithBuckets:buckets
-                                       cumulative:YES];
-
-// Iterate over the buckets and output the values
-for (id bucket in buckets)
-    NSLog(@"%@ => %@ => %@",
-        bucket,
-        [freq objectForKey:bucket],
-        [cfreq objectForKey:bucket]);
-</pre>
+    // Create statistics object
+    SBFullStatistics *stat = [SBFullStatistics new];
+    
+    // Add some random data.
+    for (int i = 0; i < 1e4; i++)
+        [stat addData:[NSNumber numberWithDouble:random()]];
+    
+    // Produce 10 equally-sized buckets covering the entire range
+    id buckets = [stat bucketsWithCount:10];
+    
+    // Calculate frequency distributions.
+    id freq = [stat frequencyDistributionWithBuckets:buckets
+                                          cumulative:NO];
+    id cfreq = [stat frequencyDistributionWithBuckets:buckets
+                                           cumulative:YES];
+    
+    // Iterate over the buckets and output the values
+    for (id bucket in buckets)
+        NSLog(@"%@ => %@ => %@",
+            bucket,
+            [freq objectForKey:bucket],
+            [cfreq objectForKey:bucket]);
 
 
 ## Download
@@ -82,7 +78,7 @@ for (id bucket in buckets)
 
 ## License
 
-Copyright (c) 2008, Stig Brautaset. All rights reserved.
+Copyright (c) 2008-2013, Stig Brautaset. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
