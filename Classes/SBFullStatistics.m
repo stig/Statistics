@@ -39,6 +39,15 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 }
 
 
+@interface SBFullStatistics ()
+
+@property (nonatomic, strong) NSMutableArray *mutableData;
+@property (nonatomic, copy) NSArray *sortedData;
+
+@end
+
+
+
 /// Instances of this class keeps a copy of each data point and is
 /// thereby able to produce sophisticated statistics. It can
 /// (eventually) take up very much memory if you collect a lot of data.
@@ -47,20 +56,11 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 
 #pragma mark Creation and deletion
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        data = [NSMutableArray new];
+- (id)init {
+    if ((self = [super init])) {
+        self.mutableData = [[NSMutableArray alloc] init];
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [data release];
-    [sortedData release];
-    [super dealloc];
 }
 
 /// This can be used to calculate the truncated (trimmed) mean,
@@ -72,7 +72,7 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 {
     id copy = [[self class] new];
     [copy addDataFromArray:[self sortedDataDiscardingLowOutliers:l high:h]];
-    return [copy autorelease];
+    return copy;
 }
 
 #pragma mark Adding data
@@ -82,19 +82,17 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 - (void)addDouble:(double)d
 {
     [super addDouble:d];
-    [data addObject:[NSNumber numberWithDouble:d]];
+    [self.mutableData addObject:@(d)];
     
     // Invalidate cached data
-    [sortedData release];
-    sortedData = nil;
+    self.sortedData = nil;
 }
 
 #pragma mark Returning data
 
 /// Returns an autoreleased copy of the data array.
-- (NSArray*)data
-{
-    return [[data copy] autorelease];
+- (NSArray *)data {
+    return [self.mutableData copy];
 }
 
 /// This is used by several other methods. The result is cached until
@@ -102,12 +100,11 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 - (NSArray*)sortedData
 {
     // Do we have cached sorted data? use it
-    if (sortedData)
-        return [[sortedData copy] autorelease];
-
-    // Create a cached sorted data array
-    sortedData = [[data sortedArrayUsingSelector:@selector(compare:)] retain];
-    return [self sortedData];
+    if (nil == _sortedData)
+        // Create a cached sorted data array
+        self.sortedData = [self.mutableData sortedArrayUsingSelector:@selector(compare:)];
+    
+    return [_sortedData copy];
 }
 
 /// The parameters l=0.05 and h=0.1 means discarding the lower 5% and
@@ -136,7 +133,7 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 - (double)mode
 {
     id freq = [NSMutableDictionary dictionaryWithCapacity:count];
-    for (NSNumber *x in data)
+    for (NSNumber *x in self.mutableData)
 		incrementValueForKey(freq, x);
 
     // No mode exists if all the numbers are unique
@@ -175,7 +172,7 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
 - (double)harmonicMean
 {
     long double sum = 0.0;
-    for (NSNumber *n in data) {
+    for (NSNumber *n in self.mutableData) {
         double d = [n doubleValue];
         if (d == 0)
             return nan(0);
@@ -194,7 +191,7 @@ static void incrementValueForKey(NSMutableDictionary *dict, NSNumber *key)
         return nan(0);
 	
     long double sum = 1;
-    for (NSNumber *n in data) {
+    for (NSNumber *n in self.mutableData) {
         double d = [n doubleValue];
         if (d < 0)
             return nan(0);
