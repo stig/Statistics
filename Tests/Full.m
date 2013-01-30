@@ -22,7 +22,6 @@
 }
 
 - (void)tearDown {
-    [stat release];
 }
 
 
