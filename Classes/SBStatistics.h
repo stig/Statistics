@@ -89,10 +89,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @end
 
 /// Full statistics class.
-@interface SBFullStatistics : SBStatistics {
-    NSMutableArray *data;
-    NSArray *sortedData;
-}
+@interface SBFullStatistics : SBStatistics
 
 /// Most frequently occuring data point
 - (double)mode;
@@ -117,7 +114,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (NSArray*)bucketsWithInterval:(double)x;
 
 /// Returns the data in the order it was added.
-- (NSArray*)data;
+//- (NSArray*)data;
 
 /// Returns the data in sorted order.
 - (NSArray*)sortedData;

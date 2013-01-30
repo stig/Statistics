@@ -19,7 +19,6 @@
 }
 
 - (void)tearDown {
-    [stat release];
 }
 
 #pragma mark Tests
