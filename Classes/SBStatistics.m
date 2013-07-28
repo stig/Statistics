@@ -55,6 +55,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return self;
 }
 
+// Init objects with data structure(s).
+- (id)initWithData:(id)x
+{
+    if (self = [super init]) {
+        NSAssert([x respondsToSelector:@selector(doubleValue)], @"Data must respond to -doubleValue");
+        [self addDouble:[x doubleValue]];
+    }
+    return self;
+}
+
+- (id)initWithArray:(NSArray*)array
+{
+    if (self = [super init]) {
+        for (id x in array)
+            [self addData:x];
+    }
+    return self;
+}
+
 #pragma mark Adding data
 
 /// @see addData:
