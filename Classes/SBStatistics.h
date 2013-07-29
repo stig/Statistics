@@ -44,6 +44,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 
+/// Custom init methods.
+- (id)initWithData:(id)x;
+
+- (id)initWithArray:(NSArray*)array;
+
 /// Add a data point.
 - (void)addDouble:(double)d;
 
