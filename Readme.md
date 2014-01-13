@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/stig/Statistics.png?branch=master)](https://travis-ci.org/stig/Statistics)
+
 # Statistics
 
 Statistics is a Foundation framework for calculating&mdash;no points
