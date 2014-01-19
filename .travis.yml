@@ -1,1 +1,4 @@
 language: objective-c
+xcode_project: Statistics.xcodeproj
+xcode_sdk: iphonesimulator
+xcode_scheme: Statistics-ios
