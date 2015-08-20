@@ -24,94 +24,94 @@
 #pragma mark Tests
 
 - (void)testCount {
-    STAssertEquals(stat.count, (NSUInteger) 0, nil);
+    XCTAssertEqual(stat.count, (NSUInteger) 0);
 
     [stat addData:@"1"];
     [stat addData:@"2"];
-    STAssertEquals(stat.count, (NSUInteger)2, nil);
+    XCTAssertEqual(stat.count, (NSUInteger)2);
 
     [stat addData:@"2"];
-    STAssertEquals(stat.count, (NSUInteger)3, nil);
+    XCTAssertEqual(stat.count, (NSUInteger)3);
 }
 
 - (void)testMin {
     [stat addData:@"1"];
     [stat addData:@"2"];
-    STAssertEqualsWithAccuracy(stat.min, 1.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy(stat.min, 1.0, 1e-6);
     
     [stat addData:@"-2"];
-    STAssertEqualsWithAccuracy(stat.min, -2.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy(stat.min, -2.0, 1e-6);
 }
 
 - (void)testMindex {
     [stat addData:@"1"];
     [stat addData:@"2"];
-    STAssertEquals(stat.mindex, (NSUInteger)0, nil);
+    XCTAssertEqual(stat.mindex, (NSUInteger)0);
     
     [stat addData:@"-2"];
-    STAssertEquals(stat.mindex, (NSUInteger)2, nil);
+    XCTAssertEqual(stat.mindex, (NSUInteger)2);
 }
 
 - (void)testMax {
     [stat addData:@"1"];
     [stat addData:@"2"];
-    STAssertEqualsWithAccuracy(stat.max, 2.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy(stat.max, 2.0, 1e-6);
 
     [stat addData:@"-3"];
-    STAssertEqualsWithAccuracy(stat.max, 2.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy(stat.max, 2.0, 1e-6);
 }
 
 - (void)testMaxdex {
     [stat addData:@"1"];
     [stat addData:@"2"];
-    STAssertEquals(stat.maxdex, (NSUInteger)1, nil);
+    XCTAssertEqual(stat.maxdex, (NSUInteger)1);
     
     [stat addData:@"-3"];
-    STAssertEquals(stat.maxdex, (NSUInteger)1, nil);
+    XCTAssertEqual(stat.maxdex, (NSUInteger)1);
 }
 
 - (void)testMean {
     [stat addData:@"1"];
     [stat addData:@"2"];
-    STAssertEqualsWithAccuracy(stat.mean, 3/2.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy(stat.mean, 3/2.0, 1e-6);
 
     [stat addData:@"-2"];
-    STAssertEqualsWithAccuracy(stat.mean, 1/3.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy(stat.mean, 1/3.0, 1e-6);
 }
 
 - (void)testRange {
     [stat addData:@"19"];
-    STAssertEqualsWithAccuracy([stat range], 0.0, 1e-6, nil);
-    STAssertEqualsWithAccuracy(stat.range, 0.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy([stat range], 0.0, 1e-6);
+    XCTAssertEqualWithAccuracy(stat.range, 0.0, 1e-6);
 
     [stat addData:@"2"];
-    STAssertEqualsWithAccuracy([stat range], 17.0, 1e-6, nil);
-    STAssertEqualsWithAccuracy(stat.range, 17.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy([stat range], 17.0, 1e-6);
+    XCTAssertEqualWithAccuracy(stat.range, 17.0, 1e-6);
     
     [stat addData:@"-2"];
-    STAssertEqualsWithAccuracy([stat range], 21.0, 1e-6, nil);
-    STAssertEqualsWithAccuracy(stat.range, 21.0, 1e-6, nil);   
+    XCTAssertEqualWithAccuracy([stat range], 21.0, 1e-6);
+    XCTAssertEqualWithAccuracy(stat.range, 21.0, 1e-6);   
 }
 
 - (void)testVariance {
     [stat addDataFromArray:[@"1 2 3 4" componentsSeparatedByString:@" "]];
-    STAssertEqualsWithAccuracy([stat variance], 5/3.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy([stat variance], 5/3.0, 1e-6);
 }
 
 - (void)testStandardDeviation {
     [stat addDataFromArray:[@"1 2 3 4" componentsSeparatedByString:@" "]];
-    STAssertEqualsWithAccuracy([stat standardDeviation], sqrt(5/3.0), 1e-6, nil);
+    XCTAssertEqualWithAccuracy([stat standardDeviation], sqrt(5/3.0), 1e-6);
     
 }
 
 - (void)testBiasedVariance {
     [stat addDataFromArray:[@"1 2 3 4" componentsSeparatedByString:@" "]];
-    STAssertEqualsWithAccuracy([stat biasedVariance], 5/4.0, 1e-6, nil);
+    XCTAssertEqualWithAccuracy([stat biasedVariance], 5/4.0, 1e-6);
 }
 
 - (void)testBiasedStandardDeviation {
     [stat addDataFromArray:[@"1 2 3 4" componentsSeparatedByString:@" "]];
-    STAssertEqualsWithAccuracy([stat biasedStandardDeviation], sqrt(5/4.0), 1e-6, nil);    
+    XCTAssertEqualWithAccuracy([stat biasedStandardDeviation], sqrt(5/4.0), 1e-6);    
 }
 
 @end
