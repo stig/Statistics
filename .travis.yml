@@ -4,4 +4,4 @@ script:
   - xctool -project Statistics.xcodeproj -scheme Statistics-ios build test GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - la -al
+  - ls -al
