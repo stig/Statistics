@@ -1,4 +1,6 @@
 language: objective-c
 xcode_project: Statistics.xcodeproj
-xcode_sdk: iphonesimulator
-xcode_scheme: Statistics-ios
+script:
+  - xcodebuild -scheme Statistics-ios test GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
