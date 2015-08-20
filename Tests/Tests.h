@@ -6,22 +6,22 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 @class SBStatistics;
 @class SBFullStatistics;
 
-@interface Stream : SenTestCase {
+@interface Stream : XCTestCase {
     SBStatistics *stat;
 }
 @end
 
-@interface Full : SenTestCase {
+@interface Full : XCTestCase {
     SBFullStatistics *stat;
 }
 @end
 
-@interface Errors : SenTestCase {
+@interface Errors : XCTestCase {
     SBFullStatistics *stat;
 }
 @end

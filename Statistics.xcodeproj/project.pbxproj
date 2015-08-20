@@ -20,7 +20,6 @@
 		E51275B216B9583C00ADA7CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51275B116B9583C00ADA7CB /* Foundation.framework */; };
 		E51275B716B9583C00ADA7CB /* Statistics_ios.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E51275B616B9583C00ADA7CB /* Statistics_ios.h */; };
 		E51275B916B9583C00ADA7CB /* Statistics_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = E51275B816B9583C00ADA7CB /* Statistics_ios.m */; };
-		E51275C116B9583C00ADA7CB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51275C016B9583C00ADA7CB /* SenTestingKit.framework */; };
 		E51275C316B9583C00ADA7CB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51275C216B9583C00ADA7CB /* UIKit.framework */; };
 		E51275C416B9583C00ADA7CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51275B116B9583C00ADA7CB /* Foundation.framework */; };
 		E51275C716B9583C00ADA7CB /* libStatistics-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51275AF16B9583C00ADA7CB /* libStatistics-ios.a */; };
@@ -87,7 +86,6 @@
 		E51275B616B9583C00ADA7CB /* Statistics_ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Statistics_ios.h; sourceTree = "<group>"; };
 		E51275B816B9583C00ADA7CB /* Statistics_ios.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Statistics_ios.m; sourceTree = "<group>"; };
 		E51275BF16B9583C00ADA7CB /* Statistics-iosTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Statistics-iosTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E51275C016B9583C00ADA7CB /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		E51275C216B9583C00ADA7CB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		E51275CA16B9583C00ADA7CB /* Statistics-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Statistics-iosTests-Info.plist"; sourceTree = "<group>"; };
 		E51275CC16B9583C00ADA7CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E51275C116B9583C00ADA7CB /* SenTestingKit.framework in Frameworks */,
 				E51275C316B9583C00ADA7CB /* UIKit.framework in Frameworks */,
 				E51275C416B9583C00ADA7CB /* Foundation.framework in Frameworks */,
 				E51275C716B9583C00ADA7CB /* libStatistics-ios.a in Frameworks */,
@@ -230,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				E51275B116B9583C00ADA7CB /* Foundation.framework */,
-				E51275C016B9583C00ADA7CB /* SenTestingKit.framework */,
 				E51275C216B9583C00ADA7CB /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -303,7 +299,7 @@
 			name = Tests;
 			productName = Tests;
 			productReference = 5385A2E60D5DBFA9004FDCD0 /* Tests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		8DC2EF4F0486A6940098B216 /* Statistics */ = {
 			isa = PBXNativeTarget;
@@ -358,7 +354,7 @@
 			name = "Statistics-iosTests";
 			productName = "Statistics-iosTests";
 			productReference = E51275BF16B9583C00ADA7CB /* Statistics-iosTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -366,6 +362,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0640;
 				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Statistics" */;
@@ -719,6 +716,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -736,7 +734,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -756,6 +753,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -766,7 +764,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
