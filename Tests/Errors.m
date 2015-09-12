@@ -24,63 +24,63 @@
 #pragma mark SBStatistics
 
 - (void)testMin {
-    STAssertTrue(isnan(stat.min), nil);
+    XCTAssertTrue(isnan(stat.min));
     [stat addData:@"2"];
-    STAssertFalse(isnan(stat.min), nil);
+    XCTAssertFalse(isnan(stat.min));
 }
 
 - (void)testMax {
-    STAssertTrue(isnan(stat.max), nil);
+    XCTAssertTrue(isnan(stat.max));
     [stat addData:@"2"];
-    STAssertFalse(isnan(stat.max), nil);
+    XCTAssertFalse(isnan(stat.max));
 }
 
 - (void)testMean {
-    STAssertTrue(isnan(stat.mean), nil);
+    XCTAssertTrue(isnan(stat.mean));
     [stat addData:@"2"];
-    STAssertFalse(isnan(stat.mean), nil);
+    XCTAssertFalse(isnan(stat.mean));
 }
 
 - (void)testRange {
-    STAssertTrue(isnan([stat range]), nil);    
+    XCTAssertTrue(isnan([stat range]));    
     [stat addData:@"2"];
-    STAssertFalse(isnan(stat.range), nil);
+    XCTAssertFalse(isnan(stat.range));
 }
 
 - (void)testVariance {
-    STAssertTrue(isnan([stat variance]), nil);
-    STAssertTrue(isnan([stat biasedVariance]), nil);
+    XCTAssertTrue(isnan([stat variance]));
+    XCTAssertTrue(isnan([stat biasedVariance]));
     
     [stat addData:@"2"];
-    STAssertTrue(isnan([stat variance]), nil);
-    STAssertTrue(isnan([stat biasedVariance]), nil);
+    XCTAssertTrue(isnan([stat variance]));
+    XCTAssertTrue(isnan([stat biasedVariance]));
 }
 
 - (void)testStandardDeviation {
-    STAssertTrue(isnan([stat standardDeviation]), nil);
-    STAssertTrue(isnan([stat biasedStandardDeviation]), nil);
+    XCTAssertTrue(isnan([stat standardDeviation]));
+    XCTAssertTrue(isnan([stat biasedStandardDeviation]));
     
     [stat addData:@"2"];
-    STAssertTrue(isnan([stat standardDeviation]), nil);
-    STAssertTrue(isnan([stat biasedStandardDeviation]), nil);
+    XCTAssertTrue(isnan([stat standardDeviation]));
+    XCTAssertTrue(isnan([stat biasedStandardDeviation]));
 }
 
 #pragma mark SBFullStatistics
 
 - (void)testMode {
-    STAssertTrue(isnan([stat mode]), nil);
+    XCTAssertTrue(isnan([stat mode]));
     [stat addData:@"1"];
-    STAssertTrue(isnan([stat mode]), nil);
+    XCTAssertTrue(isnan([stat mode]));
     [stat addData:@"-1"];
-    STAssertTrue(isnan([stat mode]), nil);
+    XCTAssertTrue(isnan([stat mode]));
     [stat addData:@"-1"];
-    STAssertFalse(isnan([stat mode]), nil);
+    XCTAssertFalse(isnan([stat mode]));
 }
 
 - (void)testMedian {
-    STAssertTrue(isnan([stat median]), nil);
+    XCTAssertTrue(isnan([stat median]));
     [stat addData:@"1"];
-    STAssertFalse(isnan([stat median]), nil);
+    XCTAssertFalse(isnan([stat median]));
 }
 
 - (void)testFrequencyDistributionWithBuckets {
@@ -89,37 +89,37 @@
                    [NSNumber numberWithInt:0], [NSNumber numberWithInt:1],
                    [NSNumber numberWithInt:0], [NSNumber numberWithInt:20],
                    nil];
-    STAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets cumulative:NO], expected, nil);
+    XCTAssertEqualObjects([stat frequencyDistributionWithBuckets:buckets cumulative:NO], expected);
 
-    STAssertThrows([stat frequencyDistributionWithBuckets:nil cumulative:NO], nil);
-    STAssertThrows([stat frequencyDistributionWithBuckets:[NSArray array] cumulative:NO], nil);
+    XCTAssertThrows([stat frequencyDistributionWithBuckets:nil cumulative:NO]);
+    XCTAssertThrows([stat frequencyDistributionWithBuckets:[NSArray array] cumulative:NO]);
 }
 
 - (void)testHarmonicMean {
-    STAssertTrue(isnan([stat harmonicMean]), nil);
+    XCTAssertTrue(isnan([stat harmonicMean]));
 
     [stat addData:@"1"];
-    STAssertFalse(isnan([stat harmonicMean]), nil);
+    XCTAssertFalse(isnan([stat harmonicMean]));
 
     [stat addData:@"0"];
-    STAssertTrue(isnan([stat harmonicMean]), nil);
+    XCTAssertTrue(isnan([stat harmonicMean]));
 }
 
 - (void)testGeometricMean {
-    STAssertTrue(isnan([stat geometricMean]), nil);
+    XCTAssertTrue(isnan([stat geometricMean]));
     
     [stat addData:@"1"];
-    STAssertFalse(isnan([stat geometricMean]), nil);
+    XCTAssertFalse(isnan([stat geometricMean]));
 
     [stat addData:@"0"];
-    STAssertFalse(isnan([stat geometricMean]), nil);
+    XCTAssertFalse(isnan([stat geometricMean]));
 
     [stat addData:@"-1"];
-    STAssertTrue(isnan([stat geometricMean]), nil);
+    XCTAssertTrue(isnan([stat geometricMean]));
 }
 
 - (void)testBuckets {
-    STAssertNil([stat bucketsWithCount:1], nil);
+    XCTAssertNil([stat bucketsWithCount:1]);
 }
 
 @end
