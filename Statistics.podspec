@@ -20,9 +20,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'Statistics' => ['Pod/Assets/*.png']
-  }
+  s.source_files = 'Pod/Classes/*'
 
 end
