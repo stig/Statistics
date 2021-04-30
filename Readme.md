@@ -16,8 +16,6 @@ are collecting a lot of data.
 
 [![Build Status](https://travis-ci.org/stig/Statistics.png?branch=trunk)](https://travis-ci.org/stig/Statistics)
 
-[![codecov.io](http://codecov.io/github/stig/Statistics/coverage.svg?branch=trunk)](http://codecov.io/github/stig/Statistics?branch=trunk)
-
 ## Examples
 
 The following example assumes you have included the @p
@@ -95,4 +93,3 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 ## Author
 
 * [Stig Brautaset](stig@brautaset.org)
-
