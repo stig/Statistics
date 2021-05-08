@@ -146,7 +146,7 @@
     int n = 1e5;
     int i;
     for (i = 0; i < n; i++)
-        [stat addData:[NSNumber numberWithInt:random()]];
+        [stat addData:[NSNumber numberWithLong:random()]];
     
     id start = [NSDate date];
     [stat frequencyDistributionWithBuckets:[stat bucketsWithCount:n/100] cumulative:NO];
