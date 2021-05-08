@@ -14,8 +14,6 @@ point. It is therefore able to provide more advanced statistical
 functions. The trade-off is that it can consume a lot of memory if you
 are collecting a lot of data.
 
-[![Build Status](https://travis-ci.org/stig/Statistics.png?branch=trunk)](https://travis-ci.org/stig/Statistics)
-
 ## Examples
 
 The following example assumes you have included the @p
