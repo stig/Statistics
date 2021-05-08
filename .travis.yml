@@ -1,4 +1,4 @@
 language: objective-c
 xcode_project: Statistics.xcodeproj
 script:
-  - xctool -project Statistics.xcodeproj -scheme Statistics-ios build test -sdk iphonesimulator
+  - xcodebuild -project Statistics.xcodeproj -scheme Statistics-ios build test -sdk iphonesimulator
